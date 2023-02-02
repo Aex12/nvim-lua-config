@@ -23,7 +23,7 @@ gls.left[2] = {
                           rm = colors.cyan, ['r?'] = colors.cyan,
                           ['!']  = colors.red,t = colors.red}
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
-      return '  '
+      return ' ' .. vim.fn.mode() .. ' '
     end,
     highlight = {colors.red,colors.bg,'bold'},
   },
@@ -148,13 +148,18 @@ gls.right[3] = {
 gls.right[4] = {
   GitBranch = {
     provider = 'GitBranch',
-    separator = ' ',
     condition = condition.check_git_workspace,
     highlight = {colors.violet,colors.bg,'bold'},
   }
 }
 
 gls.right[5] = {
+  Separator = {
+    provider = function() return ' ' end,
+  },
+}
+
+gls.right[6] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = condition.hide_in_width,
@@ -162,7 +167,7 @@ gls.right[5] = {
     highlight = {colors.green,colors.bg},
   }
 }
-gls.right[6] = {
+gls.right[7] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = condition.hide_in_width,
@@ -170,7 +175,7 @@ gls.right[6] = {
     highlight = {colors.orange,colors.bg},
   }
 }
-gls.right[7] = {
+gls.right[8] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = condition.hide_in_width,
@@ -179,7 +184,7 @@ gls.right[7] = {
   }
 }
 
-gls.right[8] = {
+gls.right[9] = {
   RainbowBlue = {
     provider = function() return ' ▊' end,
     highlight = {colors.blue,colors.bg}
