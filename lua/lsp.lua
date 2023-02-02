@@ -78,16 +78,6 @@ cmp.setup.cmdline(':', {
 })
 
 ------------- LSP --------------
-
--- Disable virtual text. Enable sign and underline.
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    underline = true,
-    signs = true,
-  }
-)
-
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -97,10 +87,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  vim.api.nvim_create_autocmd({'CursorHold'}, {
-    pattern = '*',
-    callback = vim.diagnostic.open_float
-  })
+  -- vim.api.nvim_create_autocmd({'CursorHold'}, {
+    -- pattern = '*',
+    -- callback = vim.diagnostic.open_float
+  -- })
 
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -108,6 +98,7 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'ge', vim.diagnostic.goto_next, bufopts)
