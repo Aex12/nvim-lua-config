@@ -52,10 +52,9 @@ return require('packer').startup(function(use)
   use {
     'glepnir/galaxyline.nvim', branch = 'main',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-    -- your statusline
-    -- config = function()
-      -- require('my_statusline')
-    -- end,
+    config = function()
+      require('statusline')
+    end,
   }
 
   -- Use dependency and run lua function after load
