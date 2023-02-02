@@ -27,7 +27,25 @@ return require('packer').startup(function(use)
   -- File finder
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = {
+      {'nvim-lua/plenary.nvim'},
+      { 'gbrlsnchs/telescope-lsp-handlers.nvim' }
+    },
+    config = function ()
+      local telescope = require('telescope')
+      telescope.load_extension('lsp_handlers')
+    end
+  }
+
+  -- file explorer
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    config = function ()
+      require('nvim-tree').setup()
+    end
   }
 
   -- statusline
