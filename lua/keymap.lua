@@ -44,6 +44,5 @@ nnoremap("<leader>fg", ":Telescope live_grep<CR>")
 nnoremap("<leader>fb", ":Telescope buffers<CR>")
 nnoremap("<leader>fh", ":Telescope help_tags<CR>")
 
-nnoremap('<leader>tt', ':NvimTreeFocus<CR>')
-nnoremap('<leader>tf', ':NvimTreeFindFile<CR>')
-nnoremap('<leader>tc', ':NvimTreeCollapse<CR>')
+nnoremap('<leader>tt', ':Neotree<CR>')
+nnoremap('<leader>tf', ':Neotree reveal<CR>')

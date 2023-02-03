@@ -131,6 +131,11 @@ require('lspconfig')['tsserver'].setup{
     flags = lsp_flags,
     capabilities = capabilities
 }
+require('lspconfig')['eslint'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities
+}
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
     flags = lsp_flags,

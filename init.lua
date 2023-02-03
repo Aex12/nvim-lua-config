@@ -21,13 +21,12 @@ vim.opt.packpath:remove(expand('~/.local/share/nvim/site'))
 vim.opt.runtimepath:append(expand('~/.config/' .. instance_name ))
 vim.opt.packpath:append(expand('~/.local/share/' .. instance_name .. '/site'))
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 -- this should go first always
 require('plugins')
 require('lsp')
-require('tree')
 
 -- a list of vim opts
 require('options')

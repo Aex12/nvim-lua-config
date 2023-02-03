@@ -37,19 +37,29 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- Neotree Specific. Unless you are still migrating, remove the deprecated commands from v1.x
+
   use {
-    'nvim-tree/nvim-tree.lua',
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
     requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
     },
     config = function ()
-      require('nvim-tree').setup()
+      vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+      require("neo-tree").setup({
+        filesystem = {
+          hijack_netrw_behavior = "open_default"
+        }
+      })
     end
   }
 
   -- statusline
   use {
-    'glepnir/galaxyline.nvim', branch = 'main',
+    'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true },
     config = function()
       require('statusline')
@@ -71,8 +81,8 @@ return require('packer').startup(function(use)
 
   ------------- VimScript plugins --------------
   -- close brackets
-  use { 'rstacruz/vim-closer', event = 'VimEnter' }
-  use { 'tpope/vim-endwise', event = 'VimEnter' }
+  -- use { 'rstacruz/vim-closer', event = 'VimEnter' }
+  -- use { 'tpope/vim-endwise', event = 'VimEnter' }
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text. It extends vim's % key to language-specific words instead of just single characters.
   use {'andymass/vim-matchup', event = 'VimEnter'}
