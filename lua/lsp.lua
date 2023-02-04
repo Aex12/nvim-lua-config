@@ -22,6 +22,7 @@ local lspconfig = require('lspconfig')
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local telescope = require('telescope.builtin')
+local lspkind = require('lspkind')
 
 cmp.setup({
   snippet = {
@@ -34,15 +35,27 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  formatting = {
+    format = lspkind.cmp_format(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        local entry = cmp.get_selected_entry()
+        if (entry ~= nil) then
+          cmp.confirm({ select = false })
+          return
+        end
+      end
+      fallback()
+    end, {'i', 's'}),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -86,6 +99,9 @@ cmp.setup.filetype('gitcommit', {
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
+  view = {
+    entries = { name = 'wildmenu', separator = ' | ' },
+  },
   sources = {
     { name = 'buffer' }
   }
@@ -94,6 +110,9 @@ cmp.setup.cmdline({ '/', '?' }, {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
+  view = {
+    entries = { name = 'wildmenu', separator = ' | ' },
+  },
   sources = cmp.config.sources({
     { name = 'path' }
   }, {

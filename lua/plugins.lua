@@ -53,6 +53,8 @@ return require('packer').startup(function(use)
   -- use { 'hrsh7th/vim-vsnip' }
   use { 'L3MON4D3/LuaSnip' }
   use { 'saadparwaiz1/cmp_luasnip' }
+  -- cmp icons on completion
+  use { 'onsails/lspkind.nvim' }
   -- lsp packagemanager
   use { "williamboman/mason.nvim" }
   use { "williamboman/mason-lspconfig.nvim" }
@@ -202,3 +204,7 @@ return require('packer').startup(function(use)
   -- You can alias plugin names
   -- use {'dracula/vim', as = 'dracula'}
 end)
+
+-- LIST OF PLUGINS NEEDED TO CHECK:
+-- trouble.nvim
+-- nuill-ls.nvim
