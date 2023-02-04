@@ -22,6 +22,7 @@ local lspconfig = require('lspconfig')
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local telescope = require('telescope.builtin')
+local responsiveTelescope = require('responsive-telescope')
 local lspkind = require('lspkind')
 
 cmp.setup({
@@ -99,9 +100,9 @@ cmp.setup.filetype('gitcommit', {
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
-  view = {
-    entries = { name = 'wildmenu', separator = ' | ' },
-  },
+  -- view = {
+  --   entries = { name = 'wildmenu', separator = ' | ' },
+  -- },
   sources = {
     { name = 'buffer' }
   }
@@ -110,9 +111,9 @@ cmp.setup.cmdline({ '/', '?' }, {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
-  view = {
-    entries = { name = 'wildmenu', separator = ' | ' },
-  },
+  -- view = {
+  --   entries = { name = 'wildmenu', separator = ' | ' },
+  -- },
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
@@ -143,7 +144,7 @@ local on_attach = function(_client, bufnr)
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', telescope.lsp_definitions, bufopts)
+  vim.keymap.set('n', 'gd', responsiveTelescope(telescope.lsp_definitions), bufopts)
   vim.keymap.set('n', 'ge', vim.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', 'gE', vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -156,8 +157,8 @@ local on_attach = function(_client, bufnr)
   end, bufopts)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', ':CodeActionMenu<CR>', bufopts)
-  vim.keymap.set('n', 'gr', telescope.lsp_references, bufopts)
+  vim.keymap.set('n', '<space>ca', ":CodeActionMenu<CR>", bufopts)
+  vim.keymap.set('n', 'gr', responsiveTelescope(telescope.lsp_references), bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end

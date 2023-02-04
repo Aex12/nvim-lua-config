@@ -58,10 +58,35 @@ return require('packer').startup(function(use)
   -- lsp packagemanager
   use { "williamboman/mason.nvim" }
   use { "williamboman/mason-lspconfig.nvim" }
+
+	-- use {
+	-- 	'RishabhRD/nvim-lsputils',
+	-- 	requires = { 'RishabhRD/popfix' }
+	-- }
+ 
+  -- code actions on line show a lightbulb on sign column
+  use {
+    'kosayoda/nvim-lightbulb',
+    config = function ()
+      local lightbulb = require('nvim-lightbulb')
+
+      vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI'}, {
+        pattern = '*',
+        callback = lightbulb.update_lightbulb
+      })
+    end,
+  }
+
   -- better code action
   use {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
+    event = 'VimEnter',
+    config = function ()
+      vim.g.code_action_menu_show_details = false
+      vim.g.code_action_menu_show_diff = true
+      vim.g.code_action_menu_show_action_kind = true
+    end
   }
 
   ---------- UI
@@ -100,7 +125,10 @@ return require('packer').startup(function(use)
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
       require("neo-tree").setup({
         filesystem = {
-          hijack_netrw_behavior = "open_default"
+          window = {
+            position = 'current',
+          },
+          hijack_netrw_behavior = "open_current"
         }
       })
     end
