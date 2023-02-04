@@ -1,5 +1,12 @@
 local telescopeTheme = require('telescope.themes')
 
+local themeMini = {
+  layout_strategy = 'vertical',
+  layout_config = {
+    width = 0.9,
+  },
+}
+
 local function responsiveTelescope (builtin)
   return function ()
     local columns = vim.opt.columns:get()
@@ -10,7 +17,7 @@ local function responsiveTelescope (builtin)
     elseif columns >= 142 then
       theme = telescopeTheme.get_ivy({})
     else
-      theme = telescopeTheme.get_dropdown({})
+      theme = themeMini
     end
     builtin(theme)
   end
