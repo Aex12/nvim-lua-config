@@ -89,7 +89,8 @@ ins_left {
 ins_left {
   -- mode component
   function()
-    return ''
+    local mode = vim.fn.mode()
+    return ' ' .. mode
   end,
   color = function()
     -- auto change color according to neovims mode
@@ -97,7 +98,6 @@ ins_left {
       n = colors.red,
       i = colors.green,
       v = colors.blue,
-      [''] = colors.blue,
       V = colors.blue,
       c = colors.magenta,
       no = colors.red,
