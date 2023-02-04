@@ -7,11 +7,34 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- TreeSitter based highlighting.
+  -- commentator
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup({
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      })
+    end
+  }
+
   use {
     'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
     config = function() require'nvim-treesitter.configs'.setup {
-      ensure_installed = { "c", "lua", "vim", "help", "javascript", "typescript" },
+      ensure_installed = {
+        "c", "vim", "help", "dockerfile",
+        "diff", "gitcommit", "gitignore",
+        "bash", "perl", "lua", "python",
+        "yaml", "json", "jsdoc",
+        "javascript", "typescript", "tsx", "css", "regex",
+        "prisma", "sql",
+        "html", "markdown", "markdown_inline",  "php",
+        "go", "dot", "rust", "smali"
+      },
       auto_install = true,
+      context_commentstring = {
+        enable = true
+      }
     } end
   }
   ----- LSP Related
@@ -75,14 +98,6 @@ return require('packer').startup(function(use)
     tag = 'release',
     config = function()
       require('gitsigns').setup()
-    end
-  }
-
-  -- commentator
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
     end
   }
 
