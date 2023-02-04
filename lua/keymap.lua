@@ -18,6 +18,8 @@ nnoremap("<C-k>", "<C-u>")
 -- gp select recently pasted text
 nnoremap("gp", "`[v`]")
 
+nnoremap("<Tab>", ">>")
+nnoremap("<S-Tab>", "<<")
 vnoremap("<Tab>", ">gv")
 vnoremap("<S-Tab>", "<gv")
 inoremap("<S-Tab>", "<C-D>")
