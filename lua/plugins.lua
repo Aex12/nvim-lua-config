@@ -78,6 +78,14 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- commentator
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+  }
+
   -- create custom color schemes
   -- use {'tjdevries/colorbuddy.vim' }
 
