@@ -56,6 +56,7 @@ return require('packer').startup(function(use)
   use { "williamboman/mason.nvim" }
   use { "williamboman/mason-lspconfig.nvim" }
 
+  ---------- UI
   -- File finder
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
@@ -64,6 +65,7 @@ return require('packer').startup(function(use)
     },
   }
 
+  -- tree explorer
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
@@ -92,12 +94,28 @@ return require('packer').startup(function(use)
     end,
   }
 
-  -- Use dependency and run lua function after load
+  -- git integration sign column
   use {
     'lewis6991/gitsigns.nvim',
     tag = 'release',
     config = function()
       require('gitsigns').setup()
+    end
+  }
+
+  use {
+    'akinsho/bufferline.nvim', tag = "v3.*",
+    requires = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      require('bufferline').setup({
+        options = {
+          mode = 'tabs',
+          diagnostics_indicator = function(_, level)
+            local icon = level:tatch("error") and " " or " "
+            return " " .. icon
+          end
+        },
+      })
     end
   }
 
