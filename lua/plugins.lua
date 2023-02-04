@@ -58,6 +58,19 @@ return require('packer').startup(function(use)
   use { "williamboman/mason-lspconfig.nvim" }
 
   ---------- UI
+  -- indentation lines
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function ()
+      vim.cmd [[highlight IndentBlanklineChar guifg=#2A2A37 gui=nocombine]]
+      vim.cmd [[highlight IndentBlanklineContextChar guifg=#3f3f4b gui=nocombine]]
+      require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = false,
+      }
+    end,
+  }
+
   -- File finder
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
