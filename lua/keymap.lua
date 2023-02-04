@@ -3,7 +3,7 @@
 local kutil = require('keymap-util')
 
 local nnoremap = kutil.nnoremap
--- local vnoremap = kutil.vnoremap
+local vnoremap = kutil.vnoremap
 local tnoremap = kutil.tnoremap
 
 -- mapleader space
@@ -16,6 +16,9 @@ nnoremap("<C-k>", "<C-u>")
 
 -- gp select recently pasted text
 nnoremap("gp", "`[v`]")
+
+vnoremap("<Tab>", ">gv")
+vnoremap("<S-Tab>", "<gv")
 
 -- tab navigation
 nnoremap("<leader>1", ":1tabnext<CR>")
