@@ -3,7 +3,7 @@
 local kutil = require('keymap-util')
 
 local nnoremap = kutil.nnoremap
-local vnoremap = kutil.vnoremap
+-- local vnoremap = kutil.vnoremap
 local tnoremap = kutil.tnoremap
 
 -- mapleader space
@@ -44,5 +44,5 @@ nnoremap("<leader>fg", ":Telescope live_grep<CR>")
 nnoremap("<leader>fb", ":Telescope buffers<CR>")
 nnoremap("<leader>fh", ":Telescope help_tags<CR>")
 
-nnoremap('<leader>tt', ':Neotree<CR>')
+nnoremap('<leader>tt', ':Neotree toggle<CR>')
 nnoremap('<leader>tf', ':Neotree reveal<CR>')

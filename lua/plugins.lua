@@ -2,10 +2,10 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
+  ------------- Lua plugins --------------
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
-  ------------- Lua plugins --------------
   -- TreeSitter based highlighting.
   use {
     'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
@@ -14,30 +14,32 @@ return require('packer').startup(function(use)
       auto_install = true,
     } end
   }
-
+  ----- LSP Related
+  -- lsp config
   use { 'neovim/nvim-lspconfig' }
+  -- nvim-cmp
+  use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'hrsh7th/cmp-buffer' }
   use { 'hrsh7th/cmp-path' }
   use { 'hrsh7th/cmp-cmdline' }
-  use { 'hrsh7th/nvim-cmp' }
-  use { 'hrsh7th/cmp-vsnip' }
-  use { 'hrsh7th/vim-vsnip' }
+  use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+  -- snippets
+  -- use { 'hrsh7th/cmp-vsnip' }
+  -- use { 'hrsh7th/vim-vsnip' }
+  use { 'L3MON4D3/LuaSnip' }
+  use { 'saadparwaiz1/cmp_luasnip' }
+  -- lsp packagemanager
+  use { "williamboman/mason.nvim" }
+  use { "williamboman/mason-lspconfig.nvim" }
 
   -- File finder
   use {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
     requires = {
       {'nvim-lua/plenary.nvim'},
-      { 'gbrlsnchs/telescope-lsp-handlers.nvim' }
     },
-    config = function ()
-      local telescope = require('telescope')
-      telescope.load_extension('lsp_handlers')
-    end
   }
-
-  -- Neotree Specific. Unless you are still migrating, remove the deprecated commands from v1.x
 
   use {
     "nvim-neo-tree/neo-tree.nvim",
@@ -48,6 +50,7 @@ return require('packer').startup(function(use)
       "MunifTanjim/nui.nvim",
     },
     config = function ()
+      -- Neotree Specific. Unless you are still migrating, remove the deprecated commands from v1.x
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
       require("neo-tree").setup({
         filesystem = {
@@ -85,7 +88,7 @@ return require('packer').startup(function(use)
   -- use { 'tpope/vim-endwise', event = 'VimEnter' }
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text. It extends vim's % key to language-specific words instead of just single characters.
-  use {'andymass/vim-matchup', event = 'VimEnter'}
+  -- use {'andymass/vim-matchup', event = 'VimEnter'}
 
   ---------------- COLOR SCHEME ----------------
   -- tree sitter support
