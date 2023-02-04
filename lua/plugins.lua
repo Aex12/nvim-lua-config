@@ -5,6 +5,7 @@ return require('packer').startup(function(use)
   ------------- Lua plugins --------------
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  use 'lewis6991/impatient.nvim'
 
   -- TreeSitter based highlighting.
   -- commentator

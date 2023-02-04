@@ -21,6 +21,8 @@ vim.opt.packpath:remove(expand('~/.local/share/nvim/site'))
 vim.opt.runtimepath:append(expand('~/.config/' .. instance_name ))
 vim.opt.packpath:append(expand('~/.local/share/' .. instance_name .. '/site'))
 
+pcall(require, 'impatient')
+
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
