@@ -58,6 +58,11 @@ return require('packer').startup(function(use)
   -- lsp packagemanager
   use { "williamboman/mason.nvim" }
   use { "williamboman/mason-lspconfig.nvim" }
+  -- better code action
+  use {
+    'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu',
+  }
 
   ---------- UI
   -- indentation lines
