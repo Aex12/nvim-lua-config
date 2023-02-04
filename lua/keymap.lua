@@ -5,6 +5,7 @@ local kutil = require('keymap-util')
 local nnoremap = kutil.nnoremap
 local vnoremap = kutil.vnoremap
 local tnoremap = kutil.tnoremap
+local inoremap = kutil.inoremap
 
 -- mapleader space
 vim.g.mapleader = " "
@@ -19,6 +20,7 @@ nnoremap("gp", "`[v`]")
 
 vnoremap("<Tab>", ">gv")
 vnoremap("<S-Tab>", "<gv")
+inoremap("<S-Tab>", "<C-D>")
 
 -- tab navigation
 nnoremap("<leader>1", ":1tabnext<CR>")
