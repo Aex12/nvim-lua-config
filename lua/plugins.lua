@@ -168,6 +168,9 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- motion %
+  use {'andymass/vim-matchup', event = 'VimEnter'}
+
   -- create custom color schemes
   -- use {'tjdevries/colorbuddy.vim' }
 
