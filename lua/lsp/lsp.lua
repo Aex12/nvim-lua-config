@@ -23,7 +23,7 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local lsp_signature_ok, lsp_signature = pcall(require, "lsp_signature")
+  local lsp_signature_ok, lsp_signature = pcall(require, 'lsp_signature')
   if lsp_signature_ok then
     lsp_signature.on_attach({
       bind = false,

@@ -1,6 +1,6 @@
 local servers_ok, servers = pcall(require, 'lsp.servers')
-local mason_ok, mason = pcall(require, "mason")
-local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+local mason_ok, mason = pcall(require, 'mason')
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
 
 if not (servers_ok and mason_ok and mason_lspconfig_ok) then
   return

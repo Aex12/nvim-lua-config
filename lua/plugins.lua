@@ -23,14 +23,14 @@ return require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
     config = function() require'nvim-treesitter.configs'.setup {
       ensure_installed = {
-        "c", "vim", "help", "dockerfile",
-        "diff", "gitcommit", "gitignore",
-        "bash", "perl", "lua", "python",
-        "yaml", "json", "jsdoc",
-        "javascript", "typescript", "tsx", "css", "regex",
-        "prisma", "sql",
-        "html", "markdown", "markdown_inline",  "php",
-        "go", "dot", "rust", "smali"
+        'c', 'vim', 'help', 'dockerfile',
+        'diff', 'gitcommit', 'gitignore',
+        'bash', 'perl', 'lua', 'python',
+        'yaml', 'json', 'jsdoc',
+        'javascript', 'typescript', 'tsx', 'css', 'regex',
+        'prisma', 'sql',
+        'html', 'markdown', 'markdown_inline',  'php',
+        'go', 'dot', 'rust', 'smali'
       },
       auto_install = true,
       highlight = {
@@ -65,10 +65,10 @@ return require('packer').startup(function(use)
   use { 'ray-x/lsp_signature.nvim' }
   -- lsp improves
   use {
-    "glepnir/lspsaga.nvim", branch = "main",
-    requires = { {"nvim-tree/nvim-web-devicons"} },
+    'glepnir/lspsaga.nvim', branch = 'main',
+    requires = { {'nvim-tree/nvim-web-devicons'} },
     config = function()
-        require("lspsaga").setup({
+        require('lspsaga').setup({
            lightbulb = {
             enable = true,
             enable_in_insert = false,
@@ -80,8 +80,8 @@ return require('packer').startup(function(use)
     end,
   }
   -- lsp packagemanager
-  use { "williamboman/mason.nvim" }
-  use { "williamboman/mason-lspconfig.nvim" }
+  use { 'williamboman/mason.nvim' }
+  use { 'williamboman/mason-lspconfig.nvim' }
 
 	-- use {
 	-- 	'RishabhRD/nvim-lsputils',
@@ -116,11 +116,11 @@ return require('packer').startup(function(use)
   ---------- UI
   -- indentation lines
   use {
-    "lukas-reineke/indent-blankline.nvim",
+    'lukas-reineke/indent-blankline.nvim',
     config = function ()
       vim.cmd [[highlight IndentBlanklineChar guifg=#2A2A37 gui=nocombine]]
       vim.cmd [[highlight IndentBlanklineContextChar guifg=#3f3f4b gui=nocombine]]
-      require("indent_blankline").setup {
+      require('indent_blankline').setup {
         show_current_context = true,
         show_current_context_start = false,
       }
@@ -137,22 +137,22 @@ return require('packer').startup(function(use)
 
   -- tree explorer
   use {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v2.x',
     requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
     },
     config = function ()
       -- Neotree Specific. Unless you are still migrating, remove the deprecated commands from v1.x
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-      require("neo-tree").setup({
+      require('neo-tree').setup({
         filesystem = {
           window = {
             position = 'current',
           },
-          hijack_netrw_behavior = "open_current"
+          hijack_netrw_behavior = 'open_current'
         }
       })
     end
@@ -189,15 +189,15 @@ return require('packer').startup(function(use)
   }
 
   use {
-    'akinsho/bufferline.nvim', tag = "v3.*",
+    'akinsho/bufferline.nvim', tag = 'v3.*',
     requires = 'nvim-tree/nvim-web-devicons',
     config = function()
       require('bufferline').setup({
         options = {
           mode = 'tabs',
           diagnostics_indicator = function(_, level)
-            local icon = level:tatch("error") and " " or " "
-            return " " .. icon
+            local icon = level:tatch('error') and ' ' or ' '
+            return ' ' .. icon
           end
         },
       })
@@ -208,10 +208,10 @@ return require('packer').startup(function(use)
   use {'andymass/vim-matchup', event = 'VimEnter'}
 
   use({
-    "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    'kylechui/nvim-surround',
+    tag = '*', -- Use for stability; omit to use `main` branch for the latest features
     config = function()
-        require("nvim-surround").setup({
+        require('nvim-surround').setup({
             -- Configuration here, or leave empty to use defaults
         })
     end
@@ -248,7 +248,7 @@ return require('packer').startup(function(use)
   -- use {'andymass/vim-matchup', event = 'VimEnter'}
 
   -- Load on a combination of conditions: specific filetypes or commands
-  -- Also run code after load (see the "config" key)
+  -- Also run code after load (see the 'config' key)
   -- use {
     -- 'w0rp/ale',
     -- ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},

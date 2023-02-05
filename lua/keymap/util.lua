@@ -13,9 +13,9 @@ function M.exprnoremap(mode, lhs, rhs)
 end
 
 -- Useful mode-specific shortcuts
--- nomenclature: "<expr?><mode><nore?>map(lhs, rhs)" where:
---      "expr?" optional expr option
---      "nore?" optional no-remap option
+-- nomenclature: '<expr?><mode><nore?>map(lhs, rhs)' where:
+--      'expr?' optional expr option
+--      'nore?' optional no-remap option
 --      modes -> 'n' = NORMAL, 'i' = INSERT, 'x' = 'VISUAL', 'v' = VISUAL + SELECT, 't' = TERMINAL
 
 function M.nmap(lhs, rhs) M.map('n', lhs, rhs) end

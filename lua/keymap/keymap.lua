@@ -14,41 +14,41 @@ local inoremap = kutil.inoremap
 -- mapleader space
 local keymap = {
   vim = function ()
-    vim.g.mapleader = " "
-    vim.g.maplocalleader = " "
+    vim.g.mapleader = ' '
+    vim.g.maplocalleader = ' '
 
     -- C-j and C-k for half screen navigation
-    nnoremap("<C-j>", "<C-d>")
-    nnoremap("<C-k>", "<C-u>")
+    nnoremap('<C-j>', '<C-d>')
+    nnoremap('<C-k>', '<C-u>')
 
-    nnoremap("gp", "`[v`]")
+    nnoremap('gp', '`[v`]')
 
-    nnoremap("<Tab>", ">>")
-    nnoremap("<S-Tab>", "<<")
-    vnoremap("<Tab>", ">gv")
-    vnoremap("<S-Tab>", "<gv")
-    inoremap("<S-Tab>", "<C-D>")
+    nnoremap('<Tab>', '>>')
+    nnoremap('<S-Tab>', '<<')
+    vnoremap('<Tab>', '>gv')
+    vnoremap('<S-Tab>', '<gv')
+    inoremap('<S-Tab>', '<C-D>')
 
     -- tab navigation
-    nnoremap("<leader>1", ":1tabnext<CR>")
-    nnoremap("<leader>2", ":2tabnext<CR>")
-    nnoremap("<leader>3", ":3tabnext<CR>")
-    nnoremap("<leader>4", ":4tabnext<CR>")
-    nnoremap("<leader>5", ":5tabnext<CR>")
-    nnoremap("<leader>6", ":6tabnext<CR>")
-    nnoremap("<leader>7", ":7tabnext<CR>")
-    nnoremap("<leader>8", ":8tabnext<CR>")
-    nnoremap("<leader>9", ":9tabnext<CR>")
+    nnoremap('<leader>1', ':1tabnext<CR>')
+    nnoremap('<leader>2', ':2tabnext<CR>')
+    nnoremap('<leader>3', ':3tabnext<CR>')
+    nnoremap('<leader>4', ':4tabnext<CR>')
+    nnoremap('<leader>5', ':5tabnext<CR>')
+    nnoremap('<leader>6', ':6tabnext<CR>')
+    nnoremap('<leader>7', ':7tabnext<CR>')
+    nnoremap('<leader>8', ':8tabnext<CR>')
+    nnoremap('<leader>9', ':9tabnext<CR>')
 
     -- move tabs
-    nnoremap("<leader><Left>", ":tabmove -1<CR>")
-    nnoremap("<leader><Right>", ":tabmove +1<CR>")
+    nnoremap('<leader><Left>', ':tabmove -1<CR>')
+    nnoremap('<leader><Right>', ':tabmove +1<CR>')
 
     -- ESC exits terminal mode
-    tnoremap("<Esc>", [[<C-\><C-n>]])
+    tnoremap('<Esc>', [[<C-\><C-n>]])
 
-    -- This unsets the "last search pattern" register by hitting return
-    nnoremap("<CR>", ":noh<CR>")
+    -- This unsets the 'last search pattern' register by hitting return
+    nnoremap('<CR>', ':noh<CR>')
 
     -- Telescope
     if telescope_ok then
@@ -84,7 +84,7 @@ local keymap = {
     end, bufopts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', ":CodeActionMenu<CR>", bufopts)
+    vim.keymap.set('n', '<space>ca', ':CodeActionMenu<CR>', bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
@@ -114,7 +114,7 @@ if cmp_ok and luasnip_ok then
       end
       fallback()
     end, {'i', 's'}),
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -122,8 +122,8 @@ if cmp_ok and luasnip_ok then
       else
         fallback()
       end
-    end, {"i", "s"}),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+    end, {'i', 's'}),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -131,7 +131,7 @@ if cmp_ok and luasnip_ok then
       else
         fallback()
       end
-    end, {"i", "s"}),
+    end, {'i', 's'}),
   })
 end
 

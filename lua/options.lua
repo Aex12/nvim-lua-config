@@ -2,7 +2,7 @@
 vim.o.updatetime = 300
 
 -- format to use on tab labels
-vim.o.guitablabel = "[%N] %t %M"
+vim.o.guitablabel = '[%N] %t %M'
 
 -- enable hidden buffers
 vim.o.hidden = true
@@ -11,11 +11,11 @@ vim.o.hidden = true
 vim.o.nu = true
 
 -- always show signcolumn along with line number column
-vim.o.signcolumn = "yes"
+vim.o.signcolumn = 'yes'
 
 -- show tabs as char. Also show trailing spaces
 vim.o.list = true
-vim.o.listchars = "tab:| ,trail:·"
+vim.o.listchars = 'tab:| ,trail:·'
 
 -- dont show insert/replace/visual on status line (already using lightline)
 vim.o.showmode = false
@@ -28,4 +28,4 @@ vim.o.expandtab = true
 
 -- colors
 vim.opt.termguicolors = true
-vim.cmd("colorscheme kanagawa")
+vim.cmd('colorscheme kanagawa')
