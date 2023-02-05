@@ -1,8 +1,9 @@
 local cmp_ok, cmp = pcall(require, 'cmp')
 local luasnip_ok, luasnip = pcall(require, 'luasnip')
 local lspkind_ok, lspkind = pcall(require, 'lspkind')
+local keymap_ok, keymap = pcall(require, 'keymap.keymap')
 
-if not (cmp_ok and luasnip_ok and lspkind_ok) then
+if not (cmp_ok and luasnip_ok and lspkind_ok and keymap_ok) then
   return
 end
 
@@ -23,40 +24,7 @@ cmp.setup({
   formatting = {
     format = lspkind.cmp_format(),
   },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        local entry = cmp.get_selected_entry()
-        if (entry ~= nil) then
-          cmp.confirm({ select = false })
-          return
-        end
-      end
-      fallback()
-    end, {'i', 's'}),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, {"i", "s"}),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, {"i", "s"}),
-  }),
+  mapping = keymap.cmp,
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     -- { name = 'nvim_lsp_signature_help' },

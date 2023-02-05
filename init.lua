@@ -32,5 +32,6 @@ require('lsp.lsp')
 
 -- a list of vim opts
 require('options')
-require('keymap')
+local keymap = require('keymap.keymap')
+keymap.vim()
 require('commands')
