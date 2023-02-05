@@ -207,6 +207,16 @@ return require('packer').startup(function(use)
   -- motion %
   use {'andymass/vim-matchup', event = 'VimEnter'}
 
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  })
+
   -- create custom color schemes
   -- use {'tjdevries/colorbuddy.vim' }
 
