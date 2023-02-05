@@ -44,6 +44,9 @@ return require('packer').startup(function(use)
       }
     } end
   }
+  -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  -- ^ CHECK THIS ^. Custom text objects (like 'iw' for inner word), based on tree sitter
+
   ----- LSP Related
   -- lsp config
   use { 'neovim/nvim-lspconfig' }
