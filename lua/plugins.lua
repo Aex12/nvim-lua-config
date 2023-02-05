@@ -275,7 +275,7 @@ return require('packer').startup(function(use)
   -- motion %
   use {'andymass/vim-matchup', event = 'VimEnter'}
 
-  use({
+  use {
     'kylechui/nvim-surround',
     tag = '*', -- Use for stability; omit to use `main` branch for the latest features
     config = function()
@@ -283,7 +283,15 @@ return require('packer').startup(function(use)
             -- Configuration here, or leave empty to use defaults
         })
     end
-  })
+  }
+
+  use {
+    'ggandor/leap.nvim',
+    requires = { 'tpope/vim-repeat' },
+    config = function ()
+      require('leap').add_default_mappings()
+    end,
+  }
 
   -- create custom color schemes
   -- use {'tjdevries/colorbuddy.vim' }
