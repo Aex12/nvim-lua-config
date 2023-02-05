@@ -167,6 +167,18 @@ return require('packer').startup(function(use)
     end,
   }
 
+  -- dasboard
+  -- use {
+  --   'glepnir/dashboard-nvim',
+  --   event = 'VimEnter',
+  --   config = function()
+  --     require('dashboard').setup {
+  --       -- config
+  --     }
+  --   end,
+  --   requires = {'nvim-tree/nvim-web-devicons'}
+  -- }
+
   -- git integration sign column
   use {
     'lewis6991/gitsigns.nvim',

@@ -171,7 +171,8 @@ local on_attach = function(_client, bufnr)
 end
 
 -- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
