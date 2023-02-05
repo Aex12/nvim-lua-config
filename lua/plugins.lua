@@ -73,28 +73,28 @@ return require('packer').startup(function(use)
           enable = true,
           set_jumps = true,
           goto_next_start = {
-            ["gnf"] = "@function.outer",
-            ["gnc"] = "@class.outer",
-            ["gns"] = "@scope",
-            ["gnb"] = "@block.outer",
-          },
-          goto_next_end = {
             ["gnF"] = "@function.outer",
             ["gnC"] = "@class.outer",
             ["gnS"] = "@scope",
             ["gnB"] = "@block.outer",
           },
-          goto_previous_start = {
-            ["gNf"] = "@function.outer",
-            ["gNc"] = "@class.outer",
-            ["gNs"] = "@scope",
-            ["gNb"] = "@block.outer",
+          goto_next_end = {
+            ["gnf"] = "@function.outer",
+            ["gnc"] = "@class.outer",
+            ["gns"] = "@scope",
+            ["gnb"] = "@block.outer",
           },
-          goto_previous_end = {
+          goto_previous_start = {
             ["gNF"] = "@function.outer",
             ["gNC"] = "@class.outer",
             ["gNS"] = "@scope",
             ["gNB"] = "@block.outer",
+          },
+          goto_previous_end = {
+            ["gNf"] = "@function.outer",
+            ["gNc"] = "@class.outer",
+            ["gNs"] = "@scope",
+            ["gNb"] = "@block.outer",
           },
           -- Below will go to either the start or the end, whichever is closer.
           -- Use if you want more granular movements
