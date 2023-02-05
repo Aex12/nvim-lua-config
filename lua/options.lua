@@ -29,3 +29,6 @@ vim.o.expandtab = true
 -- colors
 vim.opt.termguicolors = true
 vim.cmd('colorscheme kanagawa')
+
+-- one single statusbar
+vim.o.laststatus = 3
