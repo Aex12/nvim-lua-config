@@ -1,5 +1,5 @@
 local kutil = require('keymap.util')
-local responsiveTelescope = require('responsive-telescope')
+local responsiveTelescope = require('appearance.responsive-telescope')
 local telescope_ok, telescope = pcall(require, 'telescope.builtin')
 local cmp_ok, cmp = pcall(require, 'cmp')
 local luasnip_ok, luasnip = pcall(require, 'luasnip')
