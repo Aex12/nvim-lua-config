@@ -41,6 +41,11 @@ local keymap = {
     nnoremap('<leader>8', ':8tabnext<CR>')
     nnoremap('<leader>9', ':9tabnext<CR>')
 
+    nnoremap('<C-Up>', ':resize -1<CR>')
+    nnoremap('<C-Down>', ':resize +1<CR>')
+    nnoremap('<C-Left>', ':vertical resize -1<CR>')
+    nnoremap('<C-Right>', ':vertical resize +1<CR>')
+
     -- move tabs
     nnoremap('<leader><Left>', ':tabmove -1<CR>')
     nnoremap('<leader><Right>', ':tabmove +1<CR>')
