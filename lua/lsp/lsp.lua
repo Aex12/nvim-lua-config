@@ -60,10 +60,7 @@ local on_attach = function(_client, bufnr)
   local telescope_ok, telescope = pcall(require, 'telescope.builtin')
 
   if telescope_ok then
-    local responsiveTelescope_ok, responsiveTelescope = pcall(require, 'responsive-telescope')
-    if not (responsiveTelescope_ok) then
-      responsiveTelescope = function (builtin) builtin() end
-    end
+    local responsiveTelescope = require 'responsive-telescope'
     vim.keymap.set('n', 'gd', responsiveTelescope(telescope.lsp_definitions), bufopts)
     vim.keymap.set('n', 'gr', responsiveTelescope(telescope.lsp_references), bufopts)
   else

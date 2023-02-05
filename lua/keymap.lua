@@ -1,5 +1,5 @@
 local responsiveTelescope = require('responsive-telescope')
-local telescope = require('telescope.builtin')
+local telescope_ok, telescope = pcall(require, 'telescope.builtin')
 
 -- import utils for mapping keys
 local kutil = require('keymap-util')
@@ -48,11 +48,13 @@ tnoremap("<Esc>", [[<C-\><C-n>]])
 nnoremap("<CR>", ":noh<CR>")
 
 -- Telescope
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<leader>ff', responsiveTelescope(telescope.find_files), opts)
-vim.keymap.set('n', '<leader>fg', responsiveTelescope(telescope.live_grep), opts)
-vim.keymap.set('n', '<leader>fb', responsiveTelescope(telescope.buffers), opts)
-vim.keymap.set('n', '<leader>fh', responsiveTelescope(telescope.help_tags), opts)
+if telescope_ok then
+  local opts = { noremap=true, silent=true }
+  vim.keymap.set('n', '<leader>ff', responsiveTelescope(telescope.find_files), opts)
+  vim.keymap.set('n', '<leader>fg', responsiveTelescope(telescope.live_grep), opts)
+  vim.keymap.set('n', '<leader>fb', responsiveTelescope(telescope.buffers), opts)
+  vim.keymap.set('n', '<leader>fh', responsiveTelescope(telescope.help_tags), opts)
+end
 
 nnoremap('<leader>tt', ':Neotree toggle<CR>')
 nnoremap('<leader>tf', ':Neotree reveal<CR>')
