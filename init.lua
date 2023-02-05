@@ -28,7 +28,7 @@ pcall(require, 'impatient')
 
 -- this should go first always
 require('plugins')
-require('lsp')
+require('lsp.lsp')
 
 -- a list of vim opts
 require('options')
