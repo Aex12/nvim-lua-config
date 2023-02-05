@@ -35,6 +35,9 @@ return require('packer').startup(function(use)
       auto_install = true,
       context_commentstring = {
         enable = true
+      },
+      matchup = {
+        enable = true,
       }
     } end
   }
