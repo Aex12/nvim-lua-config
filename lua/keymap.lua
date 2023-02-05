@@ -42,7 +42,7 @@ nnoremap("<leader><Left>", ":tabmove -1<CR>")
 nnoremap("<leader><Right>", ":tabmove +1<CR>")
 
 -- ESC exits terminal mode
-tnoremap("Esc>", [[<C-\><C-n>]])
+tnoremap("<Esc>", [[<C-\><C-n>]])
 
 -- This unsets the "last search pattern" register by hitting return
 nnoremap("<CR>", ":noh<CR>")
