@@ -78,7 +78,7 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
+    -- { name = 'nvim_lsp_signature_help' },
     -- { name = 'vsnip' }, -- For vsnip users.
     { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
@@ -139,9 +139,16 @@ local on_attach = function(_client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  require "lsp_signature".on_attach({
+    bind = false,
+    floating_window = false,
+  }, bufnr)
+
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'cd', '<cmd>Lspsaga peek_definition<CR>', bufopts)
+  vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', bufopts)
   vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', responsiveTelescope(telescope.lsp_definitions), bufopts)

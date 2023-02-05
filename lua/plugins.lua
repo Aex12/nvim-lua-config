@@ -33,6 +33,9 @@ return require('packer').startup(function(use)
         "go", "dot", "rust", "smali"
       },
       auto_install = true,
+      highlight = {
+        enable = true,
+      },
       context_commentstring = {
         enable = true
       },
@@ -50,7 +53,7 @@ return require('packer').startup(function(use)
   use { 'hrsh7th/cmp-buffer' }
   use { 'hrsh7th/cmp-path' }
   use { 'hrsh7th/cmp-cmdline' }
-  use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
+  -- use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
   -- snippets
   -- use { 'hrsh7th/cmp-vsnip' }
   -- use { 'hrsh7th/vim-vsnip' }
@@ -58,6 +61,24 @@ return require('packer').startup(function(use)
   use { 'saadparwaiz1/cmp_luasnip' }
   -- cmp icons on completion
   use { 'onsails/lspkind.nvim' }
+  -- lsp signature
+  use { 'ray-x/lsp_signature.nvim' }
+  -- lsp improves
+  use {
+    "glepnir/lspsaga.nvim", branch = "main",
+    requires = { {"nvim-tree/nvim-web-devicons"} },
+    config = function()
+        require("lspsaga").setup({
+           lightbulb = {
+            enable = true,
+            enable_in_insert = false,
+            sign = false,
+            sign_priority = 40,
+            virtual_text = true,
+          },
+        })
+    end,
+  }
   -- lsp packagemanager
   use { "williamboman/mason.nvim" }
   use { "williamboman/mason-lspconfig.nvim" }
@@ -68,17 +89,17 @@ return require('packer').startup(function(use)
 	-- }
  
   -- code actions on line show a lightbulb on sign column
-  use {
-    'kosayoda/nvim-lightbulb',
-    config = function ()
-      local lightbulb = require('nvim-lightbulb')
-
-      vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI'}, {
-        pattern = '*',
-        callback = lightbulb.update_lightbulb
-      })
-    end,
-  }
+  -- use {
+  --   'kosayoda/nvim-lightbulb',
+  --   config = function ()
+  --     local lightbulb = require('nvim-lightbulb')
+  --
+  --     vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI'}, {
+  --       pattern = '*',
+  --       callback = lightbulb.update_lightbulb
+  --     })
+  --   end,
+  -- }
 
   -- better code action
   use {
