@@ -256,6 +256,7 @@ return require('packer').startup(function(use)
   use {
     'lewis6991/gitsigns.nvim',
     tag = 'release',
+    event = 'VimEnter',
     config = function()
       require('gitsigns').setup()
     end
@@ -264,6 +265,7 @@ return require('packer').startup(function(use)
   use {
     'akinsho/bufferline.nvim', tag = 'v3.*',
     requires = 'nvim-tree/nvim-web-devicons',
+    event = 'VimEnter',
     config = function()
       require('bufferline').setup({
         options = {
@@ -283,6 +285,7 @@ return require('packer').startup(function(use)
   use {
     'kylechui/nvim-surround',
     tag = '*', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VimEnter',
     config = function()
         require('nvim-surround').setup({
             -- Configuration here, or leave empty to use defaults
@@ -292,6 +295,7 @@ return require('packer').startup(function(use)
 
   use {
     'ggandor/leap.nvim',
+    event = 'VimEnter',
     requires = { 'tpope/vim-repeat' },
     config = function ()
       require('leap').add_default_mappings()

@@ -22,7 +22,7 @@ vim.opt.runtimepath:append(expand('~/.config/' .. instance_name ))
 vim.opt.packpath:append(expand('~/.local/share/' .. instance_name .. '/site'))
 
 -- this should go first always
-pcall(require, 'impatient')
+-- pcall(require, 'impatient')
 require('plugins')
 
 -- this should run before VimEnter if not, there will be graphical issues
