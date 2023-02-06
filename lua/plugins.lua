@@ -248,7 +248,7 @@ return require('lazy').setup({
   -- git integration sign column
   {
     'lewis6991/gitsigns.nvim', tag = 'release',
-    event = 'VimEnter', lazy = true, config = true,
+    lazy = true, event = 'VimEnter', config = true,
   },
 
   {

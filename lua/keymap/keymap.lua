@@ -4,6 +4,7 @@ local telescope_ok, telescope = pcall(require, 'telescope.builtin')
 local cmp_ok, cmp = pcall(require, 'cmp')
 local luasnip_ok, luasnip = pcall(require, 'luasnip')
 -- local ts_repeat_move_ok, ts_repeat_move = pcall(require, 'nvim-treesitter.textobjects.repeatable_move')
+local gitsigns_ok, gitsigns = pcall(require, 'gitsigns')
 
 -- import utils for mapping keys
 
@@ -60,7 +61,7 @@ local keymap = {
 
     -- Telescope
     if telescope_ok then
-      local opts = { noremap=true, silent=true }
+      local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<leader>fr', responsiveTelescope(telescope.resume), opts)
       vim.keymap.set('n', '<leader>ff', responsiveTelescope(telescope.find_files), opts)
       vim.keymap.set('n', '<leader>fg', responsiveTelescope(telescope.live_grep), opts)
@@ -71,22 +72,39 @@ local keymap = {
     -- if ts_repeat_move_ok then
     --   -- Repeat movement with ; and ,
     --   -- ensure ; goes forward and , goes backward regardless of the last direction
-    --   vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_next)
-    --   vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_previous)
+    --   vim.keymap.set({ 'n', 'x', 'o' }, ',', ts_repeat_move.repeat_last_move_next)
+    --   vim.keymap.set({ 'n', 'x', 'o' }, ';', ts_repeat_move.repeat_last_move_previous)
     --
     --   -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-    --   vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-    --   vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-    --   vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-    --   vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+    --   vim.keymap.set({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f)
+    --   vim.keymap.set({ 'n', 'x', 'o' }, 'F', ts_repeat_move.builtin_F)
+    --   vim.keymap.set({ 'n', 'x', 'o' }, 't', ts_repeat_move.builtin_t)
+    --   vim.keymap.set({ 'n', 'x', 'o' }, 'T', ts_repeat_move.builtin_T)
+    --
+    --   if gitsigns_ok then
+    --     -- make sure forward function comes first
+    --     local next_hunk_repeat, prev_hunk_repeat = ts_repeat_move.make_repeatable_move_pair(
+    --       gitsigns.next_hunk, gitsigns.prev_hunk
+    --     )
+    --     -- Or, use `make_repeatable_move` or `set_last_move` functions for more control. See the code for instructions.
+    --
+    --     vim.keymap.set({ 'n', 'x', 'o' }, '<leader>gg', next_hunk_repeat)
+    --     vim.keymap.set({ 'n', 'x', 'o' }, '<leader>gG', prev_hunk_repeat)
+    --   end
     -- end
 
     nnoremap('<leader>tt', ':Neotree toggle<CR>')
     nnoremap('<leader>tf', ':Neotree reveal<CR>')
+
+    if gitsigns_ok then
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gb', gitsigns.blame_line)
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gl', gitsigns.next_hunk)
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gL', gitsigns.prev_hunk)
+    end
   end,
   lsp_on_attach = function (client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
 
@@ -145,7 +163,7 @@ if cmp_ok and luasnip_ok then
         end
       end
       fallback()
-    end, {'i', 's'}),
+    end, { 'i', 's' }),
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -154,7 +172,7 @@ if cmp_ok and luasnip_ok then
       else
         fallback()
       end
-    end, {'i', 's'}),
+    end, { 'i', 's' }),
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -163,7 +181,7 @@ if cmp_ok and luasnip_ok then
       else
         fallback()
       end
-    end, {'i', 's'}),
+    end, { 'i', 's' }),
   })
 end
 
