@@ -110,6 +110,16 @@ local keymap = {
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
+
+    -- trouble
+    vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>', bufopts)
+    vim.keymap.set('n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', bufopts)
+    vim.keymap.set('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>', bufopts)
+    vim.keymap.set('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', bufopts)
+    vim.keymap.set('n', '<leader>xl', '<cmd>TroubleToggle loclist<cr>', bufopts)
+    vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', bufopts)
+
+
     if telescope_ok then
       vim.keymap.set('n', 'gd', responsiveTelescope(telescope.lsp_definitions), bufopts)
       vim.keymap.set('n', 'gr', responsiveTelescope(telescope.lsp_references), bufopts)

@@ -158,6 +158,12 @@ return require('lazy').setup({
     end
   },
 
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = true, lazy = true
+  },
+
   ---------- UI
   -- indentation lines
   {
