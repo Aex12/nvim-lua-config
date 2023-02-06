@@ -21,8 +21,20 @@ vim.opt.packpath:remove(expand('~/.local/share/nvim/site'))
 vim.opt.runtimepath:append(expand('~/.config/' .. instance_name ))
 vim.opt.packpath:append(expand('~/.local/share/' .. instance_name .. '/site'))
 
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
 -- this should go first always
--- pcall(require, 'impatient')
 require('plugins')
 
 -- this should run before VimEnter if not, there will be graphical issues
