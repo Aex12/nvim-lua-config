@@ -30,6 +30,8 @@ local keymap = {
     vnoremap('<S-Tab>', '<gv')
     inoremap('<S-Tab>', '<C-D>')
 
+    nnoremap('<C-p>', '<C-i>')
+
     -- tab navigation
     nnoremap('<leader>1', ':1tabnext<CR>')
     nnoremap('<leader>2', ':2tabnext<CR>')

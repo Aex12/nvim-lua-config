@@ -9,6 +9,10 @@ if not (servers_ok and lspconfig_ok and keymap_ok) then
   return
 end
 
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
 ------------- LSP --------------
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
