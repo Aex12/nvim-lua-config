@@ -134,18 +134,16 @@ return require('lazy').setup({
   {
     'glepnir/lspsaga.nvim', branch = 'main',
     event = 'VimEnter', lazy = true,
-    dependencies = { {'nvim-tree/nvim-web-devicons'} },
-    config = function()
-        require('lspsaga').setup({
-           lightbulb = {
-            enable = true,
-            enable_in_insert = false,
-            sign = false,
-            sign_priority = 40,
-            virtual_text = true,
-          },
-        })
-    end,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      lightbulb = {
+        enable = true,
+        enable_in_insert = false,
+        sign = false,
+        sign_priority = 40,
+        virtual_text = true,
+      },
+    },
   },
   -- lsp packagemanager
   { 'williamboman/mason.nvim' },
@@ -199,9 +197,7 @@ return require('lazy').setup({
   -- File finder
   {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
-    dependencies = {
-      {'nvim-lua/plenary.nvim'},
-    },
+    dependencies = { 'nvim-lua/plenary.nvim' },
   },
 
   -- tree explorer
@@ -230,7 +226,7 @@ return require('lazy').setup({
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', opt = true },
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     event = 'VimEnter', lazy = true,
     config = function()
       require('appearance.statusline')
@@ -251,12 +247,8 @@ return require('lazy').setup({
 
   -- git integration sign column
   {
-    'lewis6991/gitsigns.nvim',
-    tag = 'release',
-    event = 'VimEnter', lazy = true,
-    config = function()
-      require('gitsigns').setup()
-    end
+    'lewis6991/gitsigns.nvim', tag = 'release',
+    event = 'VimEnter', lazy = true, config = true,
   },
 
   {
@@ -277,22 +269,16 @@ return require('lazy').setup({
   },
 
   -- motion %
-  {'andymass/vim-matchup', event = 'VimEnter', lazy = true},
+  { 'andymass/vim-matchup', event = 'VimEnter', lazy = true },
 
   {
-    'kylechui/nvim-surround',
-    tag = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = 'VimEnter', lazy = true,
-    config = function()
-        require('nvim-surround').setup({
-            -- Configuration here, or leave empty to use defaults
-        })
-    end
+    'kylechui/nvim-surround', tag = '*', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VimEnter', lazy = true, config = true,
   },
 
   {
     'ggandor/leap.nvim',
-    event = 'VimEnter', lazy = true,
+    event = 'VimEnter',
     dependencies = { 'tpope/vim-repeat' },
     config = function ()
       require('leap').add_default_mappings()
