@@ -1,7 +1,6 @@
-local expand = vim.fn.expand
-
 local instance_name = 'nvim-lua'
-local home_path   = expand('~')
+
+local home_path   = vim.fn.expand('~')
 local data_path   = home_path .. '/.local/share/' .. instance_name
 local config_path = home_path .. '/.config/' .. instance_name
 local cache_path  = home_path .. '/.cache/' .. instance_name
@@ -18,8 +17,8 @@ vim.fn.stdpath = function(value)
   return old_stdpath(value)
 end
 
-vim.opt.runtimepath:remove(expand('~/.config/nvim'))
-vim.opt.packpath:remove(expand('~/.local/share/nvim/site'))
+vim.opt.runtimepath:remove(home_path .. '/.config/nvim')
+vim.opt.packpath:remove(home_path .. '/.local/share/nvim/site')
 
 vim.opt.runtimepath:append(config_path)
 vim.opt.packpath:append(data_path .. '/site')
