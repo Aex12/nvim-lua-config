@@ -164,6 +164,11 @@ return require('lazy').setup({
     config = true, lazy = true
   },
 
+  {
+    'j-hui/fidget.nvim', lazy = true, event = 'VimEnter',
+    config = true,
+  },
+
   -- {
   --   'jose-elias-alvarez/typescript.nvim', lazy = true,
   -- },
