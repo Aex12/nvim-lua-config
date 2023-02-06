@@ -1,27 +1,30 @@
 local expand = vim.fn.expand
+
 local instance_name = 'nvim-lua'
+local home_path   = expand('~')
+local data_path   = home_path .. '/.local/share/' .. instance_name
+local config_path = home_path .. '/.config/' .. instance_name
+local cache_path  = home_path .. '/.cache/' .. instance_name
 
 local old_stdpath = vim.fn.stdpath
 vim.fn.stdpath = function(value)
-    if value == 'data' then
-        return expand('~/.local/share/' .. instance_name)
-    end
-    if value == 'config' then
-        return expand('~/.config/' .. instance_name)
-    end
-    if value == 'cache' then
-        return expand('~/.cache/' .. instance_name)
-    end
-    return old_stdpath(value)
+  if value == 'data' then
+    return data_path
+  elseif value == 'config' then
+    return config_path
+  elseif value == 'cache' then
+    return cache_path
+  end
+  return old_stdpath(value)
 end
 
 vim.opt.runtimepath:remove(expand('~/.config/nvim'))
 vim.opt.packpath:remove(expand('~/.local/share/nvim/site'))
 
-vim.opt.runtimepath:append(expand('~/.config/' .. instance_name ))
-vim.opt.packpath:append(expand('~/.local/share/' .. instance_name .. '/site'))
+vim.opt.runtimepath:append(config_path)
+vim.opt.packpath:append(data_path .. '/site')
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = data_path .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
