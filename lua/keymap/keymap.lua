@@ -98,6 +98,7 @@ local keymap = {
 
     if gitsigns_ok then
       vim.keymap.set({ 'n', 'x', 'o' }, 'gb', gitsigns.blame_line)
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gB', gitsigns.preview_hunk)
       vim.keymap.set({ 'n', 'x', 'o' }, 'gl', gitsigns.next_hunk)
       vim.keymap.set({ 'n', 'x', 'o' }, 'gL', gitsigns.prev_hunk)
     end
