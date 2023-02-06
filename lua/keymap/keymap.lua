@@ -61,6 +61,7 @@ local keymap = {
     -- Telescope
     if telescope_ok then
       local opts = { noremap=true, silent=true }
+      vim.keymap.set('n', '<leader>fr', responsiveTelescope(telescope.resume), opts)
       vim.keymap.set('n', '<leader>ff', responsiveTelescope(telescope.find_files), opts)
       vim.keymap.set('n', '<leader>fg', responsiveTelescope(telescope.live_grep), opts)
       vim.keymap.set('n', '<leader>fb', responsiveTelescope(telescope.buffers), opts)
