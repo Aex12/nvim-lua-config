@@ -8,17 +8,6 @@ return require('packer').startup(function(use)
   use 'lewis6991/impatient.nvim'
 
   -- TreeSitter based highlighting.
-  -- commentator
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup({
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      })
-    end
-  }
-
   use {
     'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
     config = function() require'nvim-treesitter.configs'.setup {
@@ -112,6 +101,19 @@ return require('packer').startup(function(use)
 
   -- use 'nvim-treesitter/nvim-treesitter-textobjects'
 
+  -- commentator
+  use {
+    'numToStr/Comment.nvim',
+    event = 'VimEnter',
+    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    config = function()
+      require('Comment').setup({
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim')
+          .create_pre_hook(),
+      })
+    end
+  }
+
   ----- LSP Related
   -- lsp config
   use { 'neovim/nvim-lspconfig' }
@@ -130,10 +132,11 @@ return require('packer').startup(function(use)
   -- cmp icons on completion
   use { 'onsails/lspkind.nvim' }
   -- lsp signature
-  use { 'ray-x/lsp_signature.nvim' }
+  use { 'ray-x/lsp_signature.nvim', event = 'VimEnter' }
   -- lsp improves
   use {
     'glepnir/lspsaga.nvim', branch = 'main',
+    event = 'VimEnter',
     requires = { {'nvim-tree/nvim-web-devicons'} },
     config = function()
         require('lspsaga').setup({
@@ -185,6 +188,7 @@ return require('packer').startup(function(use)
   -- indentation lines
   use {
     'lukas-reineke/indent-blankline.nvim',
+    event = 'VimEnter',
     config = function ()
       vim.cmd [[highlight IndentBlanklineChar guifg=#2A2A37 gui=nocombine]]
       vim.cmd [[highlight IndentBlanklineContextChar guifg=#3f3f4b gui=nocombine]]

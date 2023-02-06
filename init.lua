@@ -21,17 +21,17 @@ vim.opt.packpath:remove(expand('~/.local/share/nvim/site'))
 vim.opt.runtimepath:append(expand('~/.config/' .. instance_name ))
 vim.opt.packpath:append(expand('~/.local/share/' .. instance_name .. '/site'))
 
-pcall(require, 'impatient')
-
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
-
 -- this should go first always
+pcall(require, 'impatient')
 require('plugins')
-require('lsp.lsp')
 
--- a list of vim opts
-require('options')
-local keymap = require('keymap.keymap')
-keymap.vim()
 require('commands')
+require('options')
+
+vim.api.nvim_create_autocmd({'VimEnter'}, {
+  pattern = '*',
+  callback = function ()
+    require('lsp.lsp')
+    require('keymap.keymap').vim()
+  end
+})
