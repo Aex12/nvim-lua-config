@@ -1,34 +1,8 @@
 -- more usable git gutter and completion (default 4000ms)
 vim.o.updatetime = 300
 
--- format to use on tab labels
-vim.o.guitablabel = '[%N] %t %M'
-
 -- enable hidden buffers
 vim.o.hidden = true
 
--- mostrar numero de linea
-vim.o.nu = true
-
--- always show signcolumn along with line number column
-vim.o.signcolumn = 'yes'
-
--- show tabs as char. Also show trailing spaces
-vim.o.list = true
-vim.o.listchars = 'tab:| ,trail:·'
-
--- dont show insert/replace/visual on status line (already using lightline)
-vim.o.showmode = false
-
--- indentation
-vim.o.shiftwidth = 2
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
+-- expand tab to spaecs
 vim.o.expandtab = true
-
--- colors
-vim.opt.termguicolors = true
-vim.cmd('colorscheme kanagawa')
-
--- one single statusbar
-vim.o.laststatus = 3

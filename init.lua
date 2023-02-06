@@ -25,9 +25,12 @@ vim.opt.packpath:append(expand('~/.local/share/' .. instance_name .. '/site'))
 pcall(require, 'impatient')
 require('plugins')
 
-require('commands')
+-- this should run before VimEnter if not, there will be graphical issues
+require('appearance.init')
 require('options')
+require('commands')
 
+-- lazy load keymaps and lsp
 vim.api.nvim_create_autocmd({'VimEnter'}, {
   pattern = '*',
   callback = function ()
