@@ -45,21 +45,21 @@ return require('lazy').setup({
 
   ----- LSP Related
   -- lsp config
-  { 'neovim/nvim-lspconfig' },
+  { 'neovim/nvim-lspconfig', lazy = true },
   -- nvim-cmp
-  { 'hrsh7th/nvim-cmp' },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-path' },
-  { 'hrsh7th/cmp-cmdline' },
+  { 'hrsh7th/nvim-cmp', lazy = true },
+  { 'hrsh7th/cmp-nvim-lsp', lazy = true },
+  { 'hrsh7th/cmp-buffer', lazy = true, event = 'VimEnter' },
+  { 'hrsh7th/cmp-path', lazy = true, event = 'VimEnter' },
+  { 'hrsh7th/cmp-cmdline', lazy = true, event = 'VimEnter' },
   -- { 'hrsh7th/cmp-nvim-lsp-signature-help' },
   -- snippets
   -- { 'hrsh7th/cmp-vsnip' },
   -- { 'hrsh7th/vim-vsnip' },
-  { 'L3MON4D3/LuaSnip' },
-  { 'saadparwaiz1/cmp_luasnip' },
+  { 'L3MON4D3/LuaSnip', lazy = true },
+  { 'saadparwaiz1/cmp_luasnip', lazy = true, event = 'VimEnter' },
   -- cmp icons on completion
-  { 'onsails/lspkind.nvim' },
+  { 'onsails/lspkind.nvim', lazy = true },
   -- lsp signature
   { 'ray-x/lsp_signature.nvim', event = 'VimEnter', lazy = true },
   -- lsp improves
@@ -78,8 +78,8 @@ return require('lazy').setup({
     },
   },
   -- lsp packagemanager
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
+  { 'williamboman/mason.nvim', lazy = true },
+  { 'williamboman/mason-lspconfig.nvim', lazy = true },
 
   -- better code action
   {
@@ -109,7 +109,7 @@ return require('lazy').setup({
 
   -- File finder
   {
-    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    'nvim-telescope/telescope.nvim', branch = '0.1.x', lazy = true,
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
 
@@ -179,7 +179,7 @@ return require('lazy').setup({
 
   {
     'ggandor/leap.nvim',
-    event = 'VimEnter',
+    event = 'VimEnter', lazy = true,
     dependencies = { 'tpope/vim-repeat' },
     config = function ()
       require('leap').add_default_mappings()
@@ -188,17 +188,13 @@ return require('lazy').setup({
 
   ---------------- COLOR SCHEME ----------------
   -- tree sitter support
-  { 'tomasiser/vim-code-dark' },
-  { 'sainnhe/sonokai' },
-  { 'navarasu/onedark.nvim' },
   { 'rebelot/kanagawa.nvim' },
-  --
-  -- create custom color schemes
 })
 
 -- LIST OF PLUGINS NEEDED TO CHECK:
 -- trouble.nvim
 -- nuill-ls.nvim
+  -- create custom color schemes
 -- {'tjdevries/colorbuddy.vim' },
 -- {
 --  'RishabhRD/nvim-lsputils',
