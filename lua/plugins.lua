@@ -164,6 +164,28 @@ return require('lazy').setup({
     config = true, lazy = true
   },
 
+  -- {
+  --   'jose-elias-alvarez/typescript.nvim', lazy = true,
+  -- },
+  -- {
+  --   'jose-elias-alvarez/null-ls.nvim', lazy = true, event = 'VimEnter',
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   config = function () 
+  --     local null_ls = require("null-ls")
+  --
+  --     null_ls.setup({
+  --       sources = {
+  --         null_ls.builtins.formatting.stylua,
+  --         --- null_ls.builtins.diagnostics.eslint,
+  --         null_ls.builtins.completion.spell,
+  --         null_ls.builtins.code_actions.gitsigns,
+  --         require("typescript.extensions.null-ls.code-actions"),
+  --       },
+  --     })
+  --
+  --   end
+  -- },
+  --
   ---------- UI
   -- indentation lines
   {

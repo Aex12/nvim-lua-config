@@ -46,12 +46,12 @@ require('plugins')
 require('appearance.init')
 require('options')
 require('commands')
+require('lsp.lsp')
 
 -- lazy load keymaps and lsp
 vim.api.nvim_create_autocmd({'VimEnter'}, {
   pattern = '*',
   callback = function ()
-    require('lsp.lsp')
     require('keymap.keymap').vim()
   end
 })
