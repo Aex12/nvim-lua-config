@@ -184,7 +184,7 @@ ins_left {
 ins_right {
   'o:encoding', -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
-  cond = conditions.hide_in_width,  
+  cond = conditions.hide_in_width,
   color = { fg = colors.blue, gui = 'bold' },
 }
 

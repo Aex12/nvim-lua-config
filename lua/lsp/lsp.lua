@@ -51,7 +51,7 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-opts = {
+local opts = {
   on_attach = on_attach,
   flags = lsp_flags,
   capabilities = capabilities
