@@ -207,6 +207,16 @@ ins_right {
   cond = conditions.hide_in_width,
 }
 
+-- ins_right {
+--   function ()
+--     local dict = vim.api.nvim_buf_get_var(0, 'gitsigns_status_dict')
+--     local text = ''
+--     for k, v in pairs(dict) do
+--     end
+--     return dict
+--   end
+-- }
+
 ins_right {
   'branch',
   icon = '',

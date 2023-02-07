@@ -269,7 +269,7 @@ return require('lazy').setup({
   },
 
   -- motion %
-  { 'andymass/vim-matchup', event = 'VimEnter', lazy = true },
+  { 'andymass/vim-matchup' },
 
   {
     'kylechui/nvim-surround', tag = '*', -- Use for stability; omit to use `main` branch for the latest features
