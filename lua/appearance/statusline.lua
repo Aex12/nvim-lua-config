@@ -138,13 +138,6 @@ ins_left {
   color = { fg = colors.filename, gui = 'bold' },
 }
 
-ins_left {
-  -- filesize component
-  'filesize',
-  color = { fg = colors.gray },
-  cond = conditions.buffer_not_empty,
-}
-
 
 ins_left { 'location', color = { fg = colors.gray } }
 
@@ -193,6 +186,13 @@ ins_left {
 
 -- Add components to right sections
 ins_right {
+  -- filesize component
+  'filesize',
+  color = { fg = colors.gray },
+  cond = conditions.buffer_not_empty,
+}
+
+ins_right {
   'o:encoding', -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
   cond = conditions.hide_in_width,
@@ -221,7 +221,7 @@ ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
   source = diff_source,
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+  symbols = { added = ' ', modified = '柳', removed = ' ' },
   diff_color = {
     added = { fg = colors.git_add },
     modified = { fg = colors.git_chg },
@@ -234,16 +234,16 @@ ins_right {
   'b:gitsigns_head',
   icon = '',
   color = { fg = colors.git_head, gui = 'bold' },
+  padding = { left = 1, right = 1 }
 }
 
-ins_right {
-  function()
-    --return '▊'
-    return ''
-  end,
-  color = { fg = colors.border }, -- Sets highlighting of component
-  padding = { left = 1 },
-}
+-- ins_right {
+--   function()
+--     return '▊'
+--   end,
+--   color = { fg = colors.border }, -- Sets highlighting of component
+--   padding = { left = 1 },
+-- }
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
