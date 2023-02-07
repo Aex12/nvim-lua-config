@@ -12,6 +12,7 @@ end
 local colors = {
   bg       = '#1F1F28',
   fg       = '#DCD7BA',
+  gray     = '#54546D',
   yellow   = '#E6C384',
   cyan     = '#7FB4CA',
   green    = '#98BB6C',
@@ -19,7 +20,14 @@ local colors = {
   violet   = '#957FB8',
   magenta  = '#D27E99',
   blue     = '#7E9CD8',
-  red      = '#E46876',
+  red      = '#FF5D62',
+  --
+  filename = '#957FB8',
+  -- git colors
+  git_head = '#938AA9',
+  git_add  = '#76946A',
+  git_del  = '#C34043',
+  git_chg  = '#DCA561',
 }
 
 local conditions = {
@@ -27,7 +35,8 @@ local conditions = {
     return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
   end,
   hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
+    local columns = vim.opt.columns:get()
+    return columns > 80
   end,
   check_git_workspace = function()
     local filepath = vim.fn.expand('%:p:h')
@@ -81,13 +90,13 @@ local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
-  padding = { left = 0, right = 1 }, -- We don't need space before this
-}
+-- ins_left {
+--   function()
+--     return '▊'
+--   end,
+--   color = { fg = colors.border },
+--   padding = { left = 0, right = 1 },
+-- }
 
 ins_left {
   -- mode component
@@ -120,24 +129,26 @@ ins_left {
     }
     return { fg = mode_color[vim.fn.mode()] }
   end,
-  padding = { right = 1 },
-}
-
-ins_left {
-  -- filesize component
-  'filesize',
-  cond = conditions.buffer_not_empty,
+  padding = { left = 1, right = 1 },
 }
 
 ins_left {
   'filename',
   cond = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = 'bold' },
+  color = { fg = colors.filename, gui = 'bold' },
 }
 
-ins_left { 'location' }
+ins_left {
+  -- filesize component
+  'filesize',
+  color = { fg = colors.gray },
+  cond = conditions.buffer_not_empty,
+}
 
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+
+ins_left { 'location', color = { fg = colors.gray } }
+
+ins_left { 'progress', color = { fg = colors.gray } }
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
@@ -185,49 +196,52 @@ ins_right {
   'o:encoding', -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
   cond = conditions.hide_in_width,
-  color = { fg = colors.blue, gui = 'bold' },
+  color = { fg = colors.gray, gui = 'bold' },
 }
 
 ins_right {
   'fileformat',
   fmt = string.upper,
   icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.blue, gui = 'bold' },
+  color = { fg = colors.gray, gui = 'bold' },
 }
+
+local function diff_source ()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed
+    }
+  end
+end
 
 ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
+  source = diff_source,
   symbols = { added = ' ', modified = '柳 ', removed = ' ' },
   diff_color = {
-    added = { fg = colors.green },
-    modified = { fg = colors.orange },
-    removed = { fg = colors.red },
+    added = { fg = colors.git_add },
+    modified = { fg = colors.git_chg },
+    removed = { fg = colors.git_del },
   },
   cond = conditions.hide_in_width,
 }
 
--- ins_right {
---   function ()
---     local dict = vim.api.nvim_buf_get_var(0, 'gitsigns_status_dict')
---     local text = ''
---     for k, v in pairs(dict) do
---     end
---     return dict
---   end
--- }
-
 ins_right {
-  'branch',
+  'b:gitsigns_head',
   icon = '',
-  color = { fg = colors.violet, gui = 'bold' },
+  color = { fg = colors.git_head, gui = 'bold' },
 }
 
 ins_right {
   function()
-    return '▊'
+    --return '▊'
+    return ''
   end,
-  color = { fg = colors.blue },
+  color = { fg = colors.border }, -- Sets highlighting of component
   padding = { left = 1 },
 }
 
