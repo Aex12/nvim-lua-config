@@ -33,7 +33,14 @@ cmp.setup({
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
   }, {
-    { name = 'buffer' },
+    {
+      name = 'buffer',
+      option = {
+        get_bufnrs = function ()
+          return vim.api.nvim_list_bufs()
+        end
+      },
+    },
   })
 })
 
@@ -42,7 +49,14 @@ cmp.setup.filetype('gitcommit', {
   sources = cmp.config.sources({
     -- { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
-    { name = 'buffer' },
+    {
+      name = 'buffer',
+      option = {
+        get_bufnrs = function ()
+          return vim.api.nvim_list_bufs()
+        end
+      },
+    },
   })
 })
 

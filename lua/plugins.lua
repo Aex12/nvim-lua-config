@@ -111,19 +111,19 @@ return require('lazy').setup({
 
   ----- LSP Related
   -- lsp config
-  { 'neovim/nvim-lspconfig', lazy = true },
+  { 'neovim/nvim-lspconfig' },
   -- nvim-cmp
-  { 'hrsh7th/nvim-cmp', lazy = true },
-  { 'hrsh7th/cmp-nvim-lsp', lazy = true },
-  { 'hrsh7th/cmp-buffer', lazy = true, event = 'VimEnter' },
-  { 'hrsh7th/cmp-path', lazy = true, event = 'VimEnter' },
-  { 'hrsh7th/cmp-cmdline', lazy = true, event = 'VimEnter' },
+  { 'hrsh7th/nvim-cmp' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-cmdline' },
   -- { 'hrsh7th/cmp-nvim-lsp-signature-help' },
   -- snippets
   -- { 'hrsh7th/cmp-vsnip' },
   -- { 'hrsh7th/vim-vsnip' },
-  { 'L3MON4D3/LuaSnip', lazy = true },
-  { 'saadparwaiz1/cmp_luasnip', lazy = true, event = 'VimEnter' },
+  { 'L3MON4D3/LuaSnip' },
+  { 'saadparwaiz1/cmp_luasnip' },
   -- cmp icons on completion
   { 'onsails/lspkind.nvim', lazy = true },
   -- lsp signature
@@ -144,8 +144,8 @@ return require('lazy').setup({
     },
   },
   -- lsp packagemanager
-  { 'williamboman/mason.nvim', lazy = true },
-  { 'williamboman/mason-lspconfig.nvim', lazy = true },
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
 
   -- better code action
   {

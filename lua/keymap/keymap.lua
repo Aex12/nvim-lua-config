@@ -136,16 +136,19 @@ local keymap = {
     vim.keymap.set('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>', bufopts)
     vim.keymap.set('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', bufopts)
     vim.keymap.set('n', '<leader>xl', '<cmd>TroubleToggle loclist<cr>', bufopts)
-    vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', bufopts)
+
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    -- vim.keymap.set('n', 'gd', '<cmd>TroubleToggle lsp_definitions<cr>', bufopts)
+    vim.keymap.set('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>', bufopts)
 
 
-    if telescope_ok then
-      vim.keymap.set('n', 'gd', responsiveTelescope(telescope.lsp_definitions), bufopts)
-      vim.keymap.set('n', 'gr', responsiveTelescope(telescope.lsp_references), bufopts)
-    else
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    end
+    -- if telescope_ok then
+    --   vim.keymap.set('n', 'gd', function () responsiveTelescope(telescope.lsp_definitions) end, bufopts)
+    --   vim.keymap.set('n', 'gr', function () responsiveTelescope(telescope.lsp_references) end, bufopts)
+    -- else
+    --   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    --   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    -- end
   end
 }
 
