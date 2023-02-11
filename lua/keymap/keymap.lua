@@ -97,12 +97,20 @@ local keymap = {
     nnoremap('<leader>tf', ':Neotree reveal<CR>')
 
     if gitsigns_ok then
-      vim.keymap.set({ 'n', 'x', 'o' }, 'gb', gitsigns.blame_line)
-      vim.keymap.set({ 'n', 'x', 'o' }, 'gB', gitsigns.preview_hunk)
-      vim.keymap.set({ 'n', 'x', 'o' }, 'gl', gitsigns.next_hunk)
-      vim.keymap.set({ 'n', 'x', 'o' }, 'gL', gitsigns.prev_hunk)
+      local opts = { noremap = true, silent = true }
+
+      vim.keymap.set('n', 'gh', function ()
+        local actions = gitsigns.get_actions()
+        if actions.blame_line ~= nil then
+          return actions.blame_line()
+        end
+        if actions.preview_hunk ~= nil then
+          return actions.preview_hunk()
+        end
+      end, opts)
     end
   end,
+
   lsp_on_attach = function (client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -110,7 +118,7 @@ local keymap = {
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
 
     vim.keymap.set('n', 'cd', '<cmd>Lspsaga peek_definition<CR>', bufopts)
-    vim.keymap.set('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', bufopts)
+    vim.keymap.set('n', 'ga', '<cmd>Lspsaga lsp_finder<CR>', bufopts)
     vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'ge', vim.diagnostic.goto_next, bufopts)
@@ -142,13 +150,9 @@ local keymap = {
     vim.keymap.set('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>', bufopts)
 
 
-    -- if telescope_ok then
-    --   vim.keymap.set('n', 'gd', function () responsiveTelescope(telescope.lsp_definitions) end, bufopts)
-    --   vim.keymap.set('n', 'gr', function () responsiveTelescope(telescope.lsp_references) end, bufopts)
-    -- else
-    --   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    --   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    -- end
+    if telescope_ok then
+      vim.keymap.set('n', 'gR', responsiveTelescope(telescope.lsp_references), bufopts)
+    end
   end
 }
 
