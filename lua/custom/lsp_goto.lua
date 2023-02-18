@@ -73,20 +73,16 @@ local function lsp_goto (use_method)
       -- if there are more than 1 results, show a list of them
       local locations = vim.lsp.util.locations_to_items(flattened_results, offset_encoding)
 
-      local ordinal = 0
       local entry_maker = function (entry)
-        ordinal = ordinal + 1
+        local trimmed_line = string_trim(entry.text)
+        local filename = entry.filename:sub(client.config.root_dir:len() + 2)
         return {
-          value = entry.text,
+          value = entry,
           path = entry.filename,
           lnum = entry.lnum,
           col = entry.col,
-          ordinal = ordinal,
-          display = function (tbl)
-            -- get filename relative to LSP project root path
-            local filename = tbl.path:sub(client.config.root_dir:len()+2)
-            return filename..' '..tbl.lnum..":"..tbl.col .. ' | ' .. string_trim(tbl.value)
-          end,
+          ordinal = filename .. trimmed_line,
+          display = filename..' '..entry.lnum..':'..entry.col..' | '..trimmed_line,
         }
       end
 
