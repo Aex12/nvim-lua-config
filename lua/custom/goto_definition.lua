@@ -27,6 +27,29 @@ local function make_lsp_buf_request_params (win, buf)
   }
 end
 
+-- local function get_project_path_by_git (path)
+--   local dirname = vim.fs.dirname(path)
+--
+--   local exists_git = vim.fn.filereadable(dirname .. '/.git/config')
+--
+--   if (exists_git == 1 or dirname == '/') then
+--     return dirname
+--   end
+--
+--   return get_project_path(dirname)
+-- end
+
+local function object_assign (ret, ...)
+  for _, obj in ipairs({ ... }) do
+    if (obj) then
+      for k, v in pairs(obj) do
+        ret[k] = v
+      end
+    end
+  end
+  return ret
+end
+
 local function goto_definition ()
   local method = "textDocument/definition"
   local win = vim.api.nvim_get_current_win()
@@ -57,7 +80,8 @@ local function goto_definition ()
       vim.list_extend(flattened_results, result)
     end
 
-    local offset_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    local offset_encoding = client.offset_encoding
 
     -- if there is only one reuslt, jump directly to it
     if (#flattened_results == 1) then
@@ -68,20 +92,32 @@ local function goto_definition ()
     -- if there are more than 1 results, show a list of them
     local locations = vim.lsp.util.locations_to_items(flattened_results, offset_encoding)
 
-    vim.pretty_print(locations)
+    local entry_maker = function (entry)
+      return {
+        value = entry,
+        path = entry.filename,
+        lnum = entry.lnum,
+        col = entry.col,
+        ordinal = entry.filename,
+        display = function (tbl)
+          local filename = tbl.value.filename:sub(client.config.root_dir:len()+2)
+          return filename..' '..tbl.value.lnum..":"..tbl.value.col .. ' | ' .. tbl.value.text
+        end,
+      }
+    end
 
-    local ts_opts = getTelescopeTheme()
+    local ts_opts = object_assign({}, ts_conf, getTelescopeTheme())
 
     ts_pickers.new(ts_opts, {
       prompt_title = 'LSP definitions',
-      finder = ts_finders.new_table({
-        results = locations,
-        entry_maker = ts_make_entry.gen_from_quickfix(ts_opts)
-      }),
       previewer = ts_conf.qflist_previewer(ts_opts),
       sorter = ts_conf.generic_sorter(ts_opts),
       push_cursor_on_edit = true,
       push_tagstack_on_edit = true,
+      finder = ts_finders.new_table({
+        results = locations,
+        entry_maker = entry_maker,
+      }),
     })
     :find()
 
