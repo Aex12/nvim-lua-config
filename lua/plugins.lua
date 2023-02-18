@@ -235,6 +235,7 @@ return require('lazy').setup({
           window = {
             mappings = {
               ["o"] = "system_open",
+              ["<C-c>"] = "clear_filter",
             },
           },
           commands = {
