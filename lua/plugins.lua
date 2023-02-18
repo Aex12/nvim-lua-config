@@ -231,9 +231,6 @@ return require('lazy').setup({
       vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
       require('neo-tree').setup({
         filesystem = {
-          window = {
-            position = 'current',
-          },
           hijack_netrw_behavior = 'open_current'
         }
       })
