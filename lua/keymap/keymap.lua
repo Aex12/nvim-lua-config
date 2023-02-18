@@ -137,22 +137,10 @@ local keymap = {
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
-    -- trouble
-    vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>', bufopts)
-    vim.keymap.set('n', '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<cr>', bufopts)
-    vim.keymap.set('n', '<leader>xd', '<cmd>TroubleToggle document_diagnostics<cr>', bufopts)
-    vim.keymap.set('n', '<leader>xq', '<cmd>TroubleToggle quickfix<cr>', bufopts)
-    vim.keymap.set('n', '<leader>xl', '<cmd>TroubleToggle loclist<cr>', bufopts)
-
-    -- vim.keymap.set('n', 'gd', '<cmd>TroubleToggle lsp_definitions<cr>', bufopts)
-    vim.keymap.set('n', 'gr', '<cmd>TroubleToggle lsp_references<cr>', bufopts)
-
-    -- if 1 definition, use vim.lsp.buf.definition, otherwise use trouble.nvim
-    vim.keymap.set('n', 'gd', require('custom.goto_definition'), bufopts)
-
-    if telescope_ok then
-      vim.keymap.set('n', 'gR', responsiveTelescope(telescope.lsp_references), bufopts)
-    end
+    -- if 1 definition, jump directly, otherwise show custom telescope picker
+    local lsp_goto = require('custom.lsp_goto')
+    vim.keymap.set('n', 'gd', lsp_goto('definition'), bufopts)
+    vim.keymap.set('n', 'gr', lsp_goto('references'), bufopts)
   end
 }
 

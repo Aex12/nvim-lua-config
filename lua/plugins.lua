@@ -159,15 +159,15 @@ return require('lazy').setup({
   },
 
   {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = true, lazy = true
-  },
-
-  {
     'j-hui/fidget.nvim', lazy = true, event = 'VimEnter',
     config = true,
   },
+
+  -- {
+  --   "folke/trouble.nvim",
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   config = true, lazy = true
+  -- },
 
   -- {
   --   'jose-elias-alvarez/typescript.nvim', lazy = true,
