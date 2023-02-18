@@ -1,15 +1,15 @@
 local ts_pickers_ok, ts_pickers = pcall(require, 'telescope.pickers')
 local ts_finders_ok, ts_finders = pcall(require, 'telescope.finders')
 local ts_config_ok, ts_config = pcall(require, 'telescope.config')
-local ts_make_entry_ok, ts_make_entry = pcall(require, 'telescope.make_entry')
 
-local telescope_ok = ts_pickers_ok and ts_finders_ok and ts_config_ok and ts_make_entry_ok
+local telescope_ok = ts_pickers_ok and ts_finders_ok and ts_config_ok
 if not telescope_ok then
   return vim.lsp.buf.definition
 end
 
 local ts_conf = ts_config.values
 local getTelescopeTheme = require('appearance.get-telescope-theme')
+local object_assign = require('util.object_assign')
 
 local function make_lsp_buf_request_params (win, buf)
   local row, col = unpack(vim.api.nvim_win_get_cursor(win))
@@ -25,29 +25,6 @@ local function make_lsp_buf_request_params (win, buf)
     position = { line = row, character = col },
     context = { includeDeclaration = true },
   }
-end
-
--- local function get_project_path_by_git (path)
---   local dirname = vim.fs.dirname(path)
---
---   local exists_git = vim.fn.filereadable(dirname .. '/.git/config')
---
---   if (exists_git == 1 or dirname == '/') then
---     return dirname
---   end
---
---   return get_project_path(dirname)
--- end
-
-local function object_assign (ret, ...)
-  for _, obj in ipairs({ ... }) do
-    if (obj) then
-      for k, v in pairs(obj) do
-        ret[k] = v
-      end
-    end
-  end
-  return ret
 end
 
 local function goto_definition ()
