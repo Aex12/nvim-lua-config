@@ -137,25 +137,46 @@ local keymap = {
     vim.keymap.set({ 'n', 'x' }, '<C-W>"', '<cmd>belowright split | resize 24 | terminal<CR>', opts)
 
     -- buffer C-W + z make zoom on split
-    vim.keymap.set({ 'n', 'x' }, '<C-W>z', function ()
+    vim.keymap.set({ 'n', 'x', 't' }, '<C-W>z', function ()
       local state_key = 'ZoomedState'
       local win = vim.api.nvim_get_current_win()
+      local tabwins = vim.api.nvim_tabpage_list_wins(0)
+      local is_zoomed = vim.fn.exists('w:'..state_key) == 1
 
-      if vim.fn.exists('w:'..state_key) == 1 then
+      if #tabwins == 0 then
+        if is_zoomed then
+          vim.api.nvim_win_del_var(win, state_key)
+        end
+        return
+      end
+
+      if is_zoomed then
         local state = vim.api.nvim_win_get_var(win, state_key)
         vim.api.nvim_win_set_height(win, state.height)
         vim.api.nvim_win_set_width(win, state.width)
         vim.api.nvim_win_del_var(win, state_key)
-      else
-        local state = {
-          height = vim.api.nvim_win_get_height(win),
-          width = vim.api.nvim_win_get_width(win),
-        }
-        vim.api.nvim_win_set_var(win, state_key, state)
-        vim.api.nvim_win_set_height(win, vim.o.lines)
-        vim.api.nvim_win_set_width(win, vim.o.columns)
+        return
       end
+
+      local state = {
+        height = vim.api.nvim_win_get_height(win),
+        width = vim.api.nvim_win_get_width(win),
+      }
+      vim.api.nvim_win_set_var(win, state_key, state)
+      vim.api.nvim_win_set_height(win, vim.o.lines)
+      vim.api.nvim_win_set_width(win, vim.o.columns)
     end, opts)
+
+    -- allow to move between windows on terminal mode
+    vim.keymap.set('t', '<C-w>w', '<C-\\><C-n><C-w>w', opts)
+    vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h', opts)
+    vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j', opts)
+    vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k', opts)
+    vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l', opts)
+    vim.keymap.set('t', '<C-w><Left>', '<C-\\><C-n><C-w>h', opts)
+    vim.keymap.set('t', '<C-w><Down>', '<C-\\><C-n><C-w>j', opts)
+    vim.keymap.set('t', '<C-w><Up>', '<C-\\><C-n><C-w>k', opts)
+    vim.keymap.set('t', '<C-w><Right>', '<C-\\><C-n><C-w>l', opts)
   end,
 
   lsp_on_attach = function (client, bufnr)

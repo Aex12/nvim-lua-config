@@ -8,14 +8,9 @@ vim.o.hidden = true
 vim.o.expandtab = true
 
 -- insert when opening new terminal
-vim.api.nvim_create_autocmd({ 'TermOpen' }, {
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufEnter', 'TermOpen' }, {
   pattern = 'term://*',
   command = 'startinsert',
-})
--- stop insert when leaving term
-vim.api.nvim_create_autocmd('BufLeave', {
-  pattern = 'term://*',
-  command = 'stopinsert',
 })
 
 -- disable terminal line numbers
