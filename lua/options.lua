@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufEnter', 'TermOpen' }, {
   pattern = 'term://*',
   -- command = 'startinsert',
   callback = function (ctx)
-    vim.g.last_term_buffer = ctx.buffer
+    vim.g.last_term_buffer = ctx.buf
     vim.cmd('startinsert')
   end,
 })
