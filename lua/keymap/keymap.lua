@@ -135,6 +135,27 @@ local keymap = {
     -- termial binds
     vim.keymap.set({ 'n', 'x' }, '<leader>cc', '<cmd>belowright split | resize 12 | terminal<CR>', opts)
     vim.keymap.set({ 'n', 'x' }, '<C-W>"', '<cmd>belowright split | resize 24 | terminal<CR>', opts)
+
+    -- buffer C-W + z make zoom on split
+    vim.keymap.set({ 'n', 'x' }, '<C-W>z', function ()
+      local state_key = 'ZoomedState'
+      local win = vim.api.nvim_get_current_win()
+
+      if vim.fn.exists('w:'..state_key) == 1 then
+        local state = vim.api.nvim_win_get_var(win, state_key)
+        vim.api.nvim_win_set_height(win, state.height)
+        vim.api.nvim_win_set_width(win, state.width)
+        vim.api.nvim_win_del_var(win, state_key)
+      else
+        local state = {
+          height = vim.api.nvim_win_get_height(win),
+          width = vim.api.nvim_win_get_width(win),
+        }
+        vim.api.nvim_win_set_var(win, state_key, state)
+        vim.api.nvim_win_set_height(win, vim.o.lines)
+        vim.api.nvim_win_set_width(win, vim.o.columns)
+      end
+    end, opts)
   end,
 
   lsp_on_attach = function (client, bufnr)
