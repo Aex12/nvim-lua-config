@@ -16,8 +16,11 @@ local inoremap = kutil.inoremap
 -- mapleader space
 local keymap = {
   vim = function ()
+    local opts = { noremap = true, silent = true }
+
     vim.g.mapleader = ' '
     vim.g.maplocalleader = ' '
+    vim.keymap.set({ 'n', 'x' }, '<Space>', '<Nop>', opts)
 
     -- C-j and C-k for half screen navigation
     nnoremap('<C-j>', '<C-d>')
@@ -61,7 +64,6 @@ local keymap = {
 
     -- Telescope
     if telescope_ok then
-      local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<leader>fr', responsiveTelescope(telescope.resume), opts)
       vim.keymap.set('n', '<leader>ff', responsiveTelescope(telescope.find_files), opts)
       vim.keymap.set('n', '<leader>fg', responsiveTelescope(telescope.live_grep), opts)
@@ -110,6 +112,29 @@ local keymap = {
         end
       end, opts)
     end
+
+
+    if require('util.gui_running') then
+      -- Copy to global register
+      vim.keymap.set({'n'}, '<D-c>', '"+yy', opts)
+      vim.keymap.set({'x'}, '<D-c>', '"+y', opts)
+
+      vim.keymap.set({'n'}, '<D-x>', '"+dd', opts)
+      vim.keymap.set({'x'}, '<D-x>', '"+d', opts)
+
+      -- Paste from global register
+      vim.keymap.set({'n', 'x'}, '<D-v>', '"+p', opts)
+      vim.keymap.set({'c', 'i'}, '<D-v>', '<C-r>"', opts)
+
+      -- Tabs
+      vim.keymap.set({'n'}, '<D-t>', '<cmd>tabe .<cr>', opts)
+      vim.keymap.set({'n'}, '<C-Tab>', 'gt', opts)
+      vim.keymap.set({'n'}, '<C-S-Tab>', 'gT', opts)
+    end
+
+    -- termial binds
+    vim.keymap.set({ 'n', 'x' }, '<leader>cc', '<cmd>belowright split | resize 12 | terminal<CR>', opts)
+    vim.keymap.set({ 'n', 'x' }, '<C-W>"', '<cmd>belowright split | resize 24 | terminal<CR>', opts)
   end,
 
   lsp_on_attach = function (client, bufnr)
@@ -127,16 +152,16 @@ local keymap = {
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     -- vim.keymap.set('n', '<C-e>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wl', function()
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set('n', '<leader>wl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', ':CodeActionMenu<CR>', bufopts)
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>', bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
     -- if 1 definition, jump directly, otherwise show custom telescope picker
     local lsp_goto = require('custom.lsp_goto')

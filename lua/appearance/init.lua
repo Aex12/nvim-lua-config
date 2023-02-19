@@ -26,3 +26,26 @@ vim.o.termguicolors = true
 vim.o.laststatus = 3
 
 vim.cmd('colorscheme kanagawa')
+
+-- GUI OPTIONS
+if require('util.gui_running') then
+  -- set guifont
+	vim.cmd [[set guifont=Hack_NF:h12]]
+
+  -- set cursor to 'a', unset cursor on focus lost to avoid moving cursor when refocusing
+  vim.cmd('set mouse=a')
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained' }, {
+    pattern = '*',
+    command = 'set mouse=a',
+  })
+  vim.api.nvim_create_autocmd('FocusLost', {
+    pattern = '*',
+    command = 'set mouse=',
+  })
+end
+
+-- Neovide specific
+if vim.g.neovide then
+  vim.g.neovide_cursor_animation_length = 0.0133
+end
+
