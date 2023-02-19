@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$NVIM" != "" ]]; then
+  nvr --servername "$NVIM" -p "$@"
+else
+  nvim -u ~/.config/nvim-lua/init.lua "$@"
+fi

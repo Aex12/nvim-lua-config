@@ -5,14 +5,30 @@ if ! command -v tree-sitter &>/dev/null; then npm install --global tree-sitter-c
 # native deps
 unameOut="$(uname -s)"
 case "${unameOut}" in
-    Linux*)     machine=Linux;;
-    Darwin*)    machine=Mac;;
-    *)          machine="UNKNOWN:${unameOut}"
+    Linux*)     MACHINE_OS=Linux;;
+    Darwin*)    MACHINE_OS=Darwin;;
+    *)          MACHINE_OS="UNKNOWN:${unameOut}"
 esac
 
-if [ "$machine" == "Mac" ]; then
-  brew install fd ripgrep
-else 
+if [ "$MACHINE_OS" == "Linux"]; then
+  RCFILE="~/.bashrc"
   sudo dnf install fd-find ripgrep
+elif [ "$MACHINE_OS" == "Darwin" ]; then
+  RCFILE="~/.zshrc"
+  brew install fd ripgrep
+else
+  echo "OS Not Supported ${unameOut}"
+  exit 1
 fi
+
+pip3 install neovim-remote
+
+mkdir -p ~/.local/bin
+cp lvi ~/.local/bin/lvi
+chmod +x ~/.local/bin/lvi
+
+if ! command -v lvi &>/dev/null; then
+  echo "export PATH=\"\$PATH:~/.local/bin\"" >> "$RCFILE"
+fi
+
 echo Everything is set! Use lvi
