@@ -228,7 +228,26 @@ return require('lazy').setup({
     },
     config = function ()
       -- Neotree Specific. Unless you are still migrating, remove the deprecated commands from v1.x
-      vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+      vim.g.neo_tree_remove_legacy_commands = 1
+
+      local events = require("neo-tree.events")
+
+      local function on_file_move (args)
+        vim.pretty_print(args)
+        local ts_clients = vim.lsp.get_active_clients({ name = "tsserver" })
+        for _, ts_client in ipairs(ts_clients) do
+          ts_client.request("workspace/executeCommand", {
+            command = "_typescript.applyRenameFile",
+            arguments = {
+              {
+                sourceUri = vim.uri_from_fname(args.source),
+                targetUri = vim.uri_from_fname(args.destination),
+              },
+            },
+          })
+        end
+      end
+
       require('neo-tree').setup({
         filesystem = {
           hijack_netrw_behavior = 'open_current',
@@ -251,7 +270,17 @@ return require('lazy').setup({
               end
             end
           }
-        }
+        },
+        event_handlers = {
+          {
+            event = events.FILE_MOVED,
+            handler = on_file_move,
+          },
+          {
+            event = events.FILE_RENAMED,
+            handler = on_file_move,
+          },
+        },
       })
     end
   },
