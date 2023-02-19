@@ -95,6 +95,7 @@ local keymap = {
 
     nnoremap('<leader>tt', ':Neotree toggle<CR>')
     nnoremap('<leader>tf', ':Neotree reveal<CR>')
+    nnoremap('<leader>tb', ':Neotree reveal buffers<CR>')
 
     if gitsigns_ok then
       local opts = { noremap = true, silent = true }
