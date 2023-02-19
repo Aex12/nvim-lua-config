@@ -10,7 +10,11 @@ vim.o.expandtab = true
 -- insert when opening new terminal
 vim.api.nvim_create_autocmd({ 'BufWinEnter', 'BufEnter', 'TermOpen' }, {
   pattern = 'term://*',
-  command = 'startinsert',
+  -- command = 'startinsert',
+  callback = function (ctx)
+    vim.g.last_term_buffer = ctx.buffer
+    vim.cmd('startinsert')
+  end,
 })
 
 -- disable terminal line numbers
@@ -23,15 +27,6 @@ vim.api.nvim_create_autocmd({ 'TermOpen' }, {
 vim.api.nvim_create_autocmd({ 'TermClose' }, {
   pattern = 'term://*',
   callback = function (ctx)
-    local all_wins = vim.api.nvim_list_wins()
-
-    for _, win in ipairs(all_wins) do
-      local winbuf = vim.api.nvim_win_get_buf(win)
-      if (ctx.buf == winbuf) then
-        vim.api.nvim_win_close(win, {})
-      end
-    end
-
-    vim.api.nvim_buf_delete(ctx.buf, {})
+    require('util.close_term')(ctx.buf)
   end
 })
