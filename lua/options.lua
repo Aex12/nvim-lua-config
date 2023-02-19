@@ -8,16 +8,17 @@ vim.o.hidden = true
 vim.o.expandtab = true
 
 -- insert when opening new terminal
-vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter', 'TermOpen' }, {
+vim.api.nvim_create_autocmd({ 'TermOpen' }, {
   pattern = 'term://*',
   command = 'startinsert',
 })
+-- stop insert when leaving term
 vim.api.nvim_create_autocmd('BufLeave', {
   pattern = 'term://*',
   command = 'stopinsert',
 })
 
--- disable terminal number
+-- disable terminal line numbers
 vim.api.nvim_create_autocmd({ 'TermOpen' }, {
   pattern = 'term://*',
   command = 'setlocal nonumber norelativenumber',
@@ -26,5 +27,16 @@ vim.api.nvim_create_autocmd({ 'TermOpen' }, {
 -- autoclose term on shell exit
 vim.api.nvim_create_autocmd({ 'TermClose' }, {
   pattern = 'term://*',
-  command = 'q',
+  callback = function (ctx)
+    local all_wins = vim.api.nvim_list_wins()
+
+    for _, win in ipairs(all_wins) do
+      local winbuf = vim.api.nvim_win_get_buf(win)
+      if (ctx.buf == winbuf) then
+        vim.api.nvim_win_close(win, {})
+      end
+    end
+
+    vim.api.nvim_buf_delete(ctx.buf, {})
+  end
 })
