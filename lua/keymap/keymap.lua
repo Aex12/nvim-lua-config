@@ -100,8 +100,6 @@ local keymap = {
     nnoremap('<leader>tb', ':Neotree reveal buffers<CR>')
 
     if gitsigns_ok then
-      local opts = { noremap = true, silent = true }
-
       vim.keymap.set('n', 'gh', function ()
         local actions = gitsigns.get_actions()
         if actions.blame_line ~= nil then
@@ -111,6 +109,9 @@ local keymap = {
           return actions.preview_hunk()
         end
       end, opts)
+
+      vim.keymap.set('n', 'gl', gitsigns.next_hunk, opts)
+      vim.keymap.set('n', 'gL', gitsigns.prev_hunk, opts)
     end
 
 

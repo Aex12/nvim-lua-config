@@ -101,6 +101,9 @@ return require('lazy').setup({
   },
   'nvim-treesitter/nvim-treesitter-textobjects',
 
+  -- motion %
+  'andymass/vim-matchup',
+
   -- commentator
   {
     'numToStr/Comment.nvim',
@@ -170,7 +173,7 @@ return require('lazy').setup({
 
   {
     'folke/neodev.nvim', lazy = true,
-    config = {
+    opts = {
       setup_jsonls = false,
       lspconfig = false,
     },
@@ -293,6 +296,12 @@ return require('lazy').setup({
     end
   },
 
+  -- git integration sign column
+  {
+    'lewis6991/gitsigns.nvim', tag = 'release',
+    lazy = true, event = 'VimEnter', config = true,
+  },
+
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
@@ -303,28 +312,24 @@ return require('lazy').setup({
     end,
   },
 
-  -- git integration sign column
-  {
-    'lewis6991/gitsigns.nvim', tag = 'release',
-    lazy = true, event = 'VimEnter', config = true,
-  },
-
   {
     'akinsho/bufferline.nvim', tag = 'v3.*',
     dependencies = 'nvim-tree/nvim-web-devicons',
     event = 'VimEnter', lazy = true,
-    config = function()
-      require('bufferline').setup({
-        options = {
-          mode = 'tabs',
-          diagnostics_indicator = function(_, level)
-            local icon = level:tatch('error') and ' ' or ' '
-            return ' ' .. icon
-          end
-        },
-      })
-    end
+    opts = {
+      options = {
+        mode = 'tabs',
+        diagnostics_indicator = function(_, level)
+          local icon = level:tatch('error') and ' ' or ' '
+          return ' ' .. icon
+        end
+      },
+    },
   },
+
+  ---------------- COLOR SCHEME ----------------
+  -- tree sitter support
+  { 'rebelot/kanagawa.nvim' },
 
   -- autopairs
   -- {
@@ -353,9 +358,6 @@ return require('lazy').setup({
   --   end,
   -- },
 
-  -- motion %
-  { 'andymass/vim-matchup' },
-
   -- {
   --   'kylechui/nvim-surround', tag = '*', -- Use for stability; omit to use `main` branch for the latest features
   --   event = 'VimEnter', lazy = true, config = true,
@@ -369,10 +371,6 @@ return require('lazy').setup({
   --     require('leap').add_default_mappings()
   --   end,
   -- },
-
-  ---------------- COLOR SCHEME ----------------
-  -- tree sitter support
-  { 'rebelot/kanagawa.nvim' },
 })
 
 -- LIST OF PLUGINS NEEDED TO CHECK:
