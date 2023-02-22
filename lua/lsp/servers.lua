@@ -9,6 +9,7 @@ local servers = {
   'jsonls',
   'yamlls',
   'rust_analyzer',
+  'prismals',
 }
 
 return servers
