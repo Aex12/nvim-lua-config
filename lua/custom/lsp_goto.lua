@@ -66,16 +66,26 @@ local function lsp_goto (use_method)
 
       -- if there is only one reuslt, jump directly to it
       if (#flattened_results == 1) then
-        vim.lsp.util.jump_to_location(flattened_results[1], offset_encoding)
+        vim.lsp.util.jump_to_location(flattened_results[1], offset_encoding, false)
         return
       end
 
       -- if there are more than 1 results, show a list of them
       local locations = vim.lsp.util.locations_to_items(flattened_results, offset_encoding)
 
+      local root_dir = client.config.root_dir
+      local home_path = vim.fn.expand('~')
+
       local entry_maker = function (entry)
         local trimmed_line = string_trim(entry.text)
-        local filename = entry.filename:sub(client.config.root_dir:len() + 2)
+        local filename = entry.filename
+
+        if vim.startswith(filename, root_dir) then
+          filename = filename:sub(root_dir:len() + 2)
+        elseif vim.startswith(filename, home_path) then
+          filename = '~/'..filename:sub(home_path:len() + 2)
+        end
+
         return {
           value = entry,
           path = entry.filename,
