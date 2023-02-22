@@ -259,6 +259,18 @@ return require('lazy').setup({
         end
       end
 
+      local function system_open (state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        local platform = require('util.platform')
+
+        if platform == 'Darwin' then
+          vim.api.nvim_command(string.format("silent !open -g '%s'", path))
+        elseif platform == 'Linux' then
+          vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+        end
+      end
+
       require('neo-tree').setup({
         filesystem = {
           hijack_netrw_behavior = 'open_current',
@@ -269,18 +281,15 @@ return require('lazy').setup({
             },
           },
           commands = {
-            system_open = function (state)
-              local node = state.tree:get_node()
-              local path = node:get_id()
-              local platform = require('util.platform')
-
-              if platform == 'Darwin' then
-                vim.api.nvim_command(string.format("silent !open -g '%s'", path))
-              elseif platform == 'Linux' then
-                vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
-              end
-            end
+            system_open = system_open
           }
+        },
+        window = {
+          mappings = {
+            ["Wf"] = function() vim.api.nvim_exec("Neotree show filesystem current", false) end,
+            ["Wb"] = function() vim.api.nvim_exec("Neotree show buffers current", false) end,
+            ["Wg"] = function() vim.api.nvim_exec("Neotree show git_status current", false) end,
+          },
         },
         event_handlers = {
           {
