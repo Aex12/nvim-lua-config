@@ -1,5 +1,5 @@
 local servers = {
-  'lua_ls',
+  -- 'lua_ls',
   'cssls',
   'html',
   'tsserver',
@@ -10,6 +10,12 @@ local servers = {
   'yamlls',
   'rust_analyzer',
   'prismals',
+  {
+    name = 'lua_ls',
+    setup = {
+      before_init = require('neodev.lsp').before_init,
+    },
+  },
 }
 
 return servers

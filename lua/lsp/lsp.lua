@@ -9,6 +9,8 @@ if not (servers_ok and lspconfig_ok and keymap_ok) then
   return
 end
 
+local object_assign = require('util.object_assign')
+
 vim.diagnostic.config({
   virtual_text = false,
 })
@@ -58,5 +60,12 @@ local opts = {
 }
 
 for _, server in pairs(servers) do
-  lspconfig[server].setup(opts)
+  local vtype = type(server)
+  if vtype == 'table' then
+    lspconfig[server.name].setup(
+      object_assign({}, server.setup, opts)
+    )
+  elseif vtype == 'string' then
+    lspconfig[server].setup(opts)
+  end
 end

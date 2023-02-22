@@ -168,6 +168,14 @@ return require('lazy').setup({
     config = true,
   },
 
+  {
+    'folke/neodev.nvim', lazy = true,
+    config = {
+      setup_jsonls = false,
+      lspconfig = false,
+    },
+  },
+
   -- {
   --   "folke/trouble.nvim",
   --   dependencies = { "nvim-tree/nvim-web-devicons" },
