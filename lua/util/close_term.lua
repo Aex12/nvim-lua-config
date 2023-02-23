@@ -1,3 +1,6 @@
+---receives a bufnr and close all windows containing it and deletes the buffer
+---@param buf number
+---@return nil
 return function (buf)
   local all_wins = vim.api.nvim_list_wins()
 

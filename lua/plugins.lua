@@ -300,6 +300,12 @@ return require('lazy').setup({
             event = events.FILE_RENAMED,
             handler = on_file_move,
           },
+          {
+            event = events.FILE_OPENED,
+            handler = function ()
+              require('neo-tree.sources.manager').close_all()
+            end,
+          },
         },
       })
     end
