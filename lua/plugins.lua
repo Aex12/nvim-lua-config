@@ -305,6 +305,11 @@ return require('lazy').setup({
     end
   },
 
+  {
+    'windwp/nvim-spectre', lazy = true, cmd = 'Spectre', opts = {},
+    dependencies = { 'nvim-lua/plenary.nvim', lazy = true },
+  },
+
   -- git integration sign column
   {
     'lewis6991/gitsigns.nvim', tag = 'release',
