@@ -28,6 +28,4 @@ local function close_last_term ()
   chan_send_termcodes(chan.id, '<C-c>eexit<CR>')
 end
 
-close_last_term()
-
 return close_last_term

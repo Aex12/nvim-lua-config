@@ -140,7 +140,7 @@ local keymap = {
     vim.keymap.set({ 'n', 'x' }, '<C-W>"', '<cmd>belowright split | terminal<CR>', opts)
 
     -- buffer C-W + z make zoom on split
-    vim.keymap.set({ 'n', 'x', 't' }, '<C-W>z', require('custom.toggle_zoom_window'), opts)
+    vim.keymap.set({ 'n', 'x', 't' }, '<C-W>z', require('custom.toggle_zoom_window').toggle_current_win_zoom, opts)
 
     -- allow to move between windows on terminal mode
     vim.keymap.set('t', '<C-w>c', '<C-\\><C-n><cmd>tabe | terminal<CR>', opts)

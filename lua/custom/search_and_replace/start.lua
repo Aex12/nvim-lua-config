@@ -1,44 +1,9 @@
-local Popup = require('nui.popup')
 local Layout = require('nui.layout')
-local event = require("nui.utils.autocmd").event
+local events = require("util.autocmd.events")
 
-local border_style = 'rounded'
-local win_options = {
-  winblend = 8,
-}
-
-local find_popup = Popup({
-  enter = true,
-  border = {
-    style = border_style,
-    text = {
-      top = ' Find ',
-      top_align = 'center',
-    },
-  },
-  win_options = win_options,
-})
-local files_popup = Popup({
-  border = {
-    style = border_style,
-    text = {
-      top = ' Files ',
-      top_align = 'center',
-    },
-  },
-  win_options = win_options,
-})
-local preview_popup = Popup({
-  border = {
-    style = border_style,
-    text = {
-      top = ' Preview ',
-      top_align = 'center',
-    },
-  },
-  focusable = false,
-  win_options = win_options,
-})
+local find_popup = require('custom.search_and_replace.window.popup_find')
+local files_popup = require('custom.search_and_replace.window.popup_files')
+local preview_popup = require('custom.search_and_replace.window.popup_preview')
 
 local layout = Layout(
   {
@@ -52,13 +17,31 @@ local layout = Layout(
   Layout.Box({
     Layout.Box({
       Layout.Box(find_popup, { size = '20%' }),
-      Layout.Box(files_popup, { size = '82%' }),
+      Layout.Box(files_popup, { size = '80%' }),
     }, { dir = 'col', size = '40%' }),
     Layout.Box(preview_popup, { size = '60%' }),
   }, { dir = 'row' })
 )
 
-layout:mount()
+local function mount ()
+  layout:mount()
+  local NuiTree = require("nui.tree")
+
+  local tree = NuiTree({
+    bufnr = files_popup.bufnr,
+    nodes = {
+      NuiTree.Node({ text = "src/core/init.lua" }, {}),
+      NuiTree.Node({ text = "src/utils/find.lua" }, {
+        NuiTree.Node({ text = "b-1" }, {}),
+        NuiTree.Node({ text = { "b-2", "b-3" } }, {}),
+      }),
+    },
+  })
+
+  tree:render()
+end
+
+mount()
 
 -- local current_dir = 'row'
 
@@ -86,7 +69,7 @@ local all_popups = {
 
 local unmount = function ()
   for _, popup in ipairs(all_popups) do
-    popup:off(event.BufLeave)
+    popup:off(events.BufLeave)
   end
   layout:unmount()
 end
@@ -102,7 +85,7 @@ local function is_popup_buffer (bufnr)
 end
 
 local on_buf_leave = function (a)
-  vim.api.nvim_create_autocmd(event.BufEnter, {
+  vim.api.nvim_create_autocmd(events.BufEnter, {
     pattern = '*',
     callback = function (ctx)
       vim.api.nvim_del_autocmd(ctx.id)
@@ -124,11 +107,14 @@ end
 local opts ={ noremap = true, silent = true }
 for _, popup in ipairs(all_popups) do
   popup:map('n', 'q', unmount, opts)
-  popup:on(event.BufLeave, on_buf_leave)
+  popup:on(events.BufLeave, on_buf_leave)
 end
 
 find_popup:map('n', '<Tab>', map_focus_popup(files_popup), opts)
+find_popup:map('n', '<C-w>w', map_focus_popup(files_popup), opts)
+
 files_popup:map('n', '<Tab>', map_focus_popup(find_popup), opts)
+files_popup:map('n', '<C-w>w', map_focus_popup(find_popup), opts)
 
 vim.api.nvim_buf_set_lines(find_popup.bufnr, 0, 2, false, {'Find = {', ''})
 vim.api.nvim_buf_set_lines(find_popup.bufnr, 3, 4, false, {'}, Replace = {', ''})

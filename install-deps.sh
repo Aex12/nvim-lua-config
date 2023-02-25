@@ -11,10 +11,10 @@ case "${unameOut}" in
 esac
 
 if [ "$MACHINE_OS" == "Linux"]; then
-  RCFILE="~/.bashrc"
+  SHRCFILE="~/.bashrc"
   sudo dnf install fd-find ripgrep
 elif [ "$MACHINE_OS" == "Darwin" ]; then
-  RCFILE="~/.zshrc"
+  SHRCFILE="~/.zshrc"
   brew install fd ripgrep
 else
   echo "OS Not Supported ${unameOut}"
