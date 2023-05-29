@@ -30,3 +30,7 @@ vim.api.nvim_create_autocmd({ 'TermClose' }, {
     require('util.close_term')(ctx.buf)
   end
 })
+
+-- highlight in red nbsp
+vim.cmd[[highlight IllegalChar ctermbg=red guibg=red]]
+vim.cmd[[match IllegalChar / /]]

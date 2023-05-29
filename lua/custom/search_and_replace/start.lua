@@ -25,20 +25,6 @@ local layout = Layout(
 
 local function mount ()
   layout:mount()
-  local NuiTree = require("nui.tree")
-
-  local tree = NuiTree({
-    bufnr = files_popup.bufnr,
-    nodes = {
-      NuiTree.Node({ text = "src/core/init.lua" }, {}),
-      NuiTree.Node({ text = "src/utils/find.lua" }, {
-        NuiTree.Node({ text = "b-1" }, {}),
-        NuiTree.Node({ text = { "b-2", "b-3" } }, {}),
-      }),
-    },
-  })
-
-  tree:render()
 end
 
 mount()

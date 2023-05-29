@@ -25,9 +25,6 @@ return require('lazy').setup({
         context_commentstring = {
           enable = true
         },
-        matchup = {
-          enable = true,
-        },
         textobjects = {
           select = {
             enable = true,
@@ -102,7 +99,7 @@ return require('lazy').setup({
   'nvim-treesitter/nvim-treesitter-textobjects',
 
   -- motion %
-  'andymass/vim-matchup',
+  -- 'andymass/vim-matchup',
 
   -- commentator
   {
@@ -248,7 +245,17 @@ return require('lazy').setup({
   -- git integration sign column
   {
     'lewis6991/gitsigns.nvim', tag = 'release',
-    lazy = true, event = 'VimEnter', config = true,
+    lazy = true, event = 'VimEnter',
+    opts = {
+      signs = {
+        add          = { text = '│' },
+        change       = { text = '│' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+      },
+    }
   },
 
   -- statusline
@@ -276,9 +283,44 @@ return require('lazy').setup({
     },
   },
 
+  {
+    "lewis6991/hover.nvim", lazy = true, event = 'VimEnter',
+    config = function()
+      require("hover").setup {
+        init = function()
+          -- Require providers
+          require("hover.providers.lsp")
+          -- require('hover.providers.gh')
+          -- require('hover.providers.gh_user')
+          -- require('hover.providers.jira')
+          -- require('hover.providers.man')
+          -- require('hover.providers.dictionary')
+        end,
+        preview_opts = {
+          border = nil
+        },
+        -- Whether the contents of a currently open hover window should be moved
+        -- to a :h preview-window when pressing the hover keymap.
+        preview_window = false,
+        title = true
+      }
+
+      -- Setup keymaps
+      vim.keymap.set("n", "K", require("hover").hover, {desc = "hover.nvim"})
+      vim.keymap.set("n", "gK", require("hover").hover_select, {desc = "hover.nvim (select)"})
+    end
+  },
+
   ---------------- COLOR SCHEME ----------------
   -- tree sitter support
-  { 'rebelot/kanagawa.nvim' },
+  {
+    'rebelot/kanagawa.nvim',
+    opts = {
+      colors = {
+        theme = { all = { ui = { bg_gutter = 'none' }  }},
+      },
+    },
+  },
 
   -- autopairs
   -- {
