@@ -12,7 +12,9 @@ local servers = {
   {
     name = 'lua_ls',
     setup = {
-      before_init = require('neodev.lsp').before_init,
+      before_init = function (...)
+        return require('neodev.lsp').before_init(...)
+      end
     },
   },
 }
