@@ -338,7 +338,7 @@ return require('lazy').setup({
 
   ---------------- COLOR SCHEME ----------------
   -- tree sitter support
-  { 'rebelot/kanagawa.nvim' },
+  { 'rebelot/kanagawa.nvim', commit = '4c8d487' },
 
   -- autopairs
   -- {

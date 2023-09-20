@@ -26,6 +26,9 @@ local on_attach = function(client, bufnr)
     -- callback = vim.diagnostic.open_float
   -- })
 
+  -- disable lsp highlighting in favor of treesitter highlight
+  client.server_capabilities.semanticTokensProvider = nil
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
