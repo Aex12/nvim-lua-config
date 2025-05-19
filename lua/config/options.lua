@@ -32,7 +32,7 @@ vim.o.termguicolors = true
 vim.o.laststatus = 3
 
 vim.cmd('colorscheme kanagawa')
-vim.cmd('set mouse=')
+vim.cmd('set mouse=a')
 
 -- Create an autocommand group
 vim.api.nvim_create_augroup('ShellIndent', { clear = true })
